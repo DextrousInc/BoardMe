@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">BoardMe</string>
+    <string name="developer_email">rajagopal.a.dinesh.28@gmail.com</string>
+
+    <string name="nav_link_import">Import</string>
+    <string name="nav_link_gallery">Gallery</string>
+    <string name="nav_link_slideshow">Slideshow</string>
+    <string name="nav_link_tools">Tools</string>
+    <string name="nav_section_communicate">Communicate</string>
+    <string name="nav_link_about">Share</string>
+    <string name="nav_link_settings">Send</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="base_api_url">http://10.0.2.2:8090/api/</string>
+
+    <string name="title_activity_home1">HomeActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>
