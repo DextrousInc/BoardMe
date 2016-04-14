@@ -1,7 +1,9 @@
 package com.dextrous.hack.boardme.model;
 
 
-public class TravelHistory {
+import java.io.Serializable;
+
+public class TravelHistory implements Serializable{
     private String createdTS;
     private RouteLocation endRoute;
     private Double fareAmount;

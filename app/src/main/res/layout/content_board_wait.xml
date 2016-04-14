@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_board_wait_action"
+        android:id="@+id/boardwaitButton"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="112dp" />
+
+    <ImageView
+        android:layout_width="@dimen/display_image_min_width"
+        android:layout_height="@dimen/display_image_min_height"
+        android:id="@+id/boardWaitImage"
+        android:src="@mipmap/board_wait"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="61dp" />
+</RelativeLayout>

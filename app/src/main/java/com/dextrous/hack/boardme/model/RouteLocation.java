@@ -1,7 +1,9 @@
 package com.dextrous.hack.boardme.model;
 
 
-public class RouteLocation {
+import java.io.Serializable;
+
+public class RouteLocation implements Serializable {
     private String createdTS;
     private Integer farePercent;
     private Integer id;

@@ -1,9 +1,10 @@
 package com.dextrous.hack.boardme.model;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+public class User implements Serializable {
     private Date createdTS;
     private String currencyType;
     private String email;

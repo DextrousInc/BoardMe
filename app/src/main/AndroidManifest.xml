@@ -2,6 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dextrous.hack.boardme">
 
+    <!-- Required to scan for and connect to Estimote Beacons via Bluetooth. -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <!-- Required for BLE scanning on Android 6.0 and above. -->
+    <uses-permission-sdk-23 android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission-sdk-23 android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- Required to access Estimote Cloud. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -19,6 +29,33 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.BoardMeActivity"
+            android:label="@string/title_activity_board_me"
+            android:parentActivityName=".activity.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dextrous.hack.boardme.activity.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".activity.BoardWaitActivity"
+            android:label="@string/title_activity_board_wait"
+            android:parentActivityName=".activity.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dextrous.hack.boardme.activity.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".activity.TravelHistoryItemActivity"
+            android:label="@string/title_activity_travel_history_item"
+            android:parentActivityName=".activity.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dextrous.hack.boardme.activity.HomeActivity" />
         </activity>
     </application>
 

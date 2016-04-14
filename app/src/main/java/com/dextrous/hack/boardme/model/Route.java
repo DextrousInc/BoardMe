@@ -1,7 +1,9 @@
 package com.dextrous.hack.boardme.model;
 
 
-public class Route {
+import java.io.Serializable;
+
+public class Route implements Serializable {
     private String beaconId;
     private String createdTS;
     private Integer id;

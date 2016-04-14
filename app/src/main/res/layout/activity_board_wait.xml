@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.BoardWaitActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/label_current_route"
+        android:id="@+id/currentRouteLabel"
+        android:layout_marginTop="121dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/label_current_route"
+        android:id="@+id/currentRouteValueLabel"
+        android:layout_alignTop="@+id/currentRouteLabel"
+        android:layout_toEndOf="@+id/currentRouteLabel"
+        android:layout_marginStart="119dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/label_current_stop"
+        android:id="@+id/currentStopLabel"
+        android:layout_marginTop="45dp"
+        android:layout_below="@+id/currentRouteLabel"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/label_current_stop"
+        android:id="@+id/currentStopValueLabel"
+        android:layout_alignTop="@+id/currentStopLabel"
+        android:layout_alignStart="@+id/currentRouteValueLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/label_estimated_time"
+        android:id="@+id/fareLabel"
+        android:layout_alignTop="@+id/etaValueLabel"
+        android:layout_toStartOf="@+id/currentRouteValueLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/label_estimated_time"
+        android:id="@+id/etaValueLabel"
+        android:layout_below="@+id/currentStopValueLabel"
+        android:layout_alignStart="@+id/currentStopValueLabel"
+        android:layout_marginTop="117dp" />
+</RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,15 +1,15 @@
 package com.dextrous.hack.boardme.wrapper;
 
 
-import com.dextrous.hack.boardme.service.BoardmeAPIService;
+import com.dextrous.hack.boardme.service.BoardMeAPIService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.dextrous.hack.boardme.constant.BoardmeConstants.SERVER_DATE_FORMAT;
 import static com.dextrous.hack.boardme.constant.BoardmeConstants.LOCAL_SERVER_URL;
+import static com.dextrous.hack.boardme.constant.BoardmeConstants.SERVER_DATE_FORMAT;
 
 public class RetrofitWrapper {
 
@@ -31,8 +31,9 @@ public class RetrofitWrapper {
                     .build();
         }
     }
-    public static BoardmeAPIService build() {
-        return retrofit.create(BoardmeAPIService.class);
+    public static BoardMeAPIService build() {
+        start(null); // to avoid null pointer exception
+        return retrofit.create(BoardMeAPIService.class);
     }
 
 }

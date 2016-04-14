@@ -4,6 +4,7 @@ import java.util.List;
 
 public class GenericListResponse<T> {
     private Boolean success;
+    private String error;
     private List<T> items;
 
     public Boolean getSuccess() {
@@ -22,11 +23,20 @@ public class GenericListResponse<T> {
         this.items = items;
     }
 
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
     @Override
     public String toString() {
         return "GenericListResponse{" +
                 "success=" + success +
                 ", items=" + items +
+                ", error=" + error +
                 '}';
     }
 }

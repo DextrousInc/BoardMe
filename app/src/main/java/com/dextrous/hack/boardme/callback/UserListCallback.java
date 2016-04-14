@@ -7,8 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.dextrous.hack.boardme.R;
-import com.dextrous.hack.boardme.adapter.StableArrayAdapter;
+import com.dextrous.hack.boardme.adapter.UserArrayAdapter;
 import com.dextrous.hack.boardme.model.User;
 import com.dextrous.hack.boardme.response.GenericListResponse;
 
@@ -34,29 +33,19 @@ public class UserListCallback implements Callback<GenericListResponse<User>> {
         if(apiResponse != null) {
             List<User> userList = apiResponse.getItems();
             if(userList != null && !userList.isEmpty()){
-                System.out.println((listView != null) + " is it null");
                 List<String> names = new ArrayList<>();
                 for (User user : userList) {
                     names.add(user.getFullName());
                 }
-                ListAdapter listAdapter = new StableArrayAdapter(context, userList, names.toArray(new String[]{}));
+                ListAdapter listAdapter = new UserArrayAdapter(context, userList);
                 listView.setAdapter(listAdapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                     @Override
                     public void onItemClick(AdapterView<?> parent, final View view,
                                             int position, long id) {
-                        final String item = (String) parent.getItemAtPosition(position);
-                        Log.d("Item Selected", item);
-                                /*view.animate().setDuration(2000).alpha(0)
-                                        .withEndAction(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                list.remove(item);
-                                                adapter.notifyDataSetChanged();
-                                                view.setAlpha(1);
-                                            }
-                                        });*/
+                        final User item = (User) parent.getItemAtPosition(position);
+                        Log.d("Item Selected", item.toString());
                     }
 
                 });

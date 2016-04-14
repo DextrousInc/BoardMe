@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">BoardMe</string>
     <string name="developer_email">rajagopal.a.dinesh.28@gmail.com</string>
+    <string name="user_email">useremail</string>
 
     <string name="nav_link_import">Import</string>
     <string name="nav_link_gallery">Gallery</string>
@@ -17,4 +18,27 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="label_username">Username</string>
+    <string name="label_password">Password</string>
+    <string name="label_current_route">Current Route</string>
+    <string name="label_current_stop">Chosen stop</string>
+    <string name="label_not_available">N/A</string>
+    <string name="label_destination">Chosen Destination</string>
+    <string name="label_choose_destination">Choose Destination</string>
+    <string name="label_distance_to_travel">The most nearest Bus is at a distance of</string>
+    <string name="label_estimated_time">Estimated Arrival Time(min approx.)</string>
+    <string name="label_fare_amount">Fare Amount</string>
+    <string name="label_home_logo_desc">Home Logo</string>
+
+    <string name="label_login_action">Login</string>
+    <string name="label_pay_action">Pay Now</string>
+
+    <string name="label_board_me_action">BoardMe</string>
+    <string name="label_board_wait_action">BoardWait</string>
+    <string name="title_activity_board_me">BoardMeActivity</string>
+    <string name="title_activity_board_wait">BoardWait</string>
+    <string name="title_activity_travel_history_item">Ticket Details</string>
+
+
 </resources>

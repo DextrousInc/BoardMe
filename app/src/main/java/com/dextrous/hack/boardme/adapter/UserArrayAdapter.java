@@ -13,13 +13,13 @@ import com.dextrous.hack.boardme.model.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StableArrayAdapter extends ArrayAdapter<String> {
+public class UserArrayAdapter extends ArrayAdapter<User> {
 
     private final Context context;
     private final List<User> values;
 
-    public StableArrayAdapter(Context context, List<User> values, String[] names) {
-        super(context, -1, names);
+    public UserArrayAdapter(Context context, List<User> values) {
+        super(context, -1, values);
         this.context = context;
         this.values = values;
     }
@@ -36,7 +36,7 @@ public class StableArrayAdapter extends ArrayAdapter<String> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.user_list_view, parent, false);
+        View rowView = inflater.inflate(R.layout.user_list_item_view, parent, false);
         TextView textView = (TextView) rowView.findViewById(R.id.firstLine);
         TextView textView2 = (TextView) rowView.findViewById(R.id.secondLine);
         User item = values.get(position);
