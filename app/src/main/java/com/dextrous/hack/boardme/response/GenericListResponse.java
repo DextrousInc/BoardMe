@@ -1,8 +1,9 @@
 package com.dextrous.hack.boardme.response;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class GenericListResponse<T> {
+public class GenericListResponse<T> implements Serializable{
     private Boolean success;
     private String error;
     private List<T> items;

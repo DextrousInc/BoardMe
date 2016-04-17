@@ -9,10 +9,10 @@ import android.widget.TextView;
 
 import com.dextrous.hack.boardme.R;
 import com.dextrous.hack.boardme.callback.BoardWaitResponseCallback;
-import com.dextrous.hack.boardme.constant.BoardmeConstants;
+import com.dextrous.hack.boardme.constant.BoardMeConstants;
 import com.dextrous.hack.boardme.model.BoardMeLocation;
+import com.dextrous.hack.boardme.model.Route;
 import com.dextrous.hack.boardme.model.User;
-import com.dextrous.hack.boardme.response.BoardRouteResponse;
 import com.dextrous.hack.boardme.response.BoardWaitResponse;
 import com.dextrous.hack.boardme.response.GenericBeanResponse;
 import com.dextrous.hack.boardme.service.BoardMeAPIService;
@@ -21,7 +21,7 @@ import com.dextrous.hack.boardme.wrapper.RetrofitWrapper;
 
 import retrofit2.Call;
 
-import static com.dextrous.hack.boardme.constant.BoardmeConstants.USER_AUTH_KEY_PREFERENCE_KEY;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.USER_AUTH_KEY_PREFERENCE_KEY;
 
 public class BoardWaitActivity extends AppCompatActivity {
 
@@ -39,19 +39,23 @@ public class BoardWaitActivity extends AppCompatActivity {
         BoardMeAPIService apiService = RetrofitWrapper.build();
 
         Intent intent = getIntent();
-        Object temp = intent.getSerializableExtra(BoardmeConstants.CURRENT_USER_LOCATION_KEY);
+        Object temp = intent.getSerializableExtra(BoardMeConstants.INTENT_PARAM_CURRENT_USER_LOCATION_KEY);
         BoardMeLocation userLocation = temp != null ? (BoardMeLocation)temp : null;
 
-        String beaconId = intent.getStringExtra(BoardmeConstants.NEAREST_BEACON_ID_KEY);
+        temp = intent.getSerializableExtra(BoardMeConstants.INTENT_PARAM_SELECTED_ROUTE_KEY);
+        Route selectedRoute = temp != null ? (Route)temp : null;
+
+        String beaconId = intent.getStringExtra(BoardMeConstants.INTENT_PARAM_NEAREST_BEACON_ID_KEY);
         //TODO remove on getting actual beacon ID
         // API call 3
         User userAuthObject = AndroidUtil.getPreferenceAsObject(getApplicationContext(), USER_AUTH_KEY_PREFERENCE_KEY, User.class);
         System.out.println("User auth=" + userAuthObject);
         System.out.println("userLocation=" + userLocation);
         if(userAuthObject != null
-                && userLocation != null) {
+                && userLocation != null
+                && selectedRoute != null) {
             Call<GenericBeanResponse<BoardWaitResponse>> boardWaitCall = apiService.getBoardWaitData(
-                    "1",
+                    String.valueOf(selectedRoute.getId()),
                     String.valueOf(userAuthObject.getId()),
                     String.valueOf(userLocation.getLatitude()),
                     String.valueOf(userLocation.getLongitude()));

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activity.HomeActivity">
+    tools:context=".activity.RouteLocationListActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,21 +20,16 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-
-
-    <ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/navigation_flip_view"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="@dimen/activity_flipper_top_margin">
+        <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/stopListView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-        <include layout="@layout/content_home" />
-        <include layout="@layout/content_user_list_view" />
-        <include layout="@layout/content_route_list_view" />
-        <include layout="@layout/content_board_me" />
-        <include layout="@layout/content_board_wait" />
-        <include layout="@layout/content_user_history_view" />
-        <include layout="@layout/content_login_form" />
-    </ViewFlipper>
+
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

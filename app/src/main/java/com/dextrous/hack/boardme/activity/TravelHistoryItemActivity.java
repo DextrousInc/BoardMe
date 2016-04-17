@@ -1,16 +1,13 @@
 package com.dextrous.hack.boardme.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import com.dextrous.hack.boardme.R;
-import com.dextrous.hack.boardme.constant.BoardmeConstants;
+import com.dextrous.hack.boardme.constant.BoardMeConstants;
 import com.dextrous.hack.boardme.model.TravelHistory;
 import com.dextrous.hack.boardme.service.BoardMeAPIService;
 import com.dextrous.hack.boardme.wrapper.RetrofitWrapper;
@@ -24,7 +21,7 @@ public class TravelHistoryItemActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Object temp = getIntent().getSerializableExtra(BoardmeConstants.TRAVEL_HISTORY_ITEM_KEY);
+        Object temp = getIntent().getSerializableExtra(BoardMeConstants.INTENT_PARAM_TRAVEL_HISTORY_ITEM_KEY);
 
         TextView selectedRouteText = (TextView) findViewById(R.id.currentRouteValueLabel);
         TextView selectedStartRouteText = (TextView) findViewById(R.id.currentStopValueLabel);
@@ -39,7 +36,7 @@ public class TravelHistoryItemActivity extends AppCompatActivity {
             selectedEndRouteText.setText(travelHistory.getEndRoute().getStopName());
             fareAmountText.setText(travelHistory.getUser().getCurrencyType() + travelHistory.getFareAmount());
         } else {
-            temp = getIntent().getSerializableExtra(BoardmeConstants.TRAVEL_HISTORY_ITEM_ID_KEY);
+            temp = getIntent().getSerializableExtra(BoardMeConstants.INTENT_PARAM_TRAVEL_HISTORY_ITEM_ID_KEY);
             if (temp != null) {
                 // Create a callback
                 // send the input fields

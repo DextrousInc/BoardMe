@@ -1,7 +1,9 @@
 package com.dextrous.hack.boardme.response;
 
 
-public class GenericBeanResponse<T> {
+import java.io.Serializable;
+
+public class GenericBeanResponse<T> implements Serializable{
     private Boolean success;
     private String error;
     private T item;

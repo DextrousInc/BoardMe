@@ -24,13 +24,6 @@ public class UserArrayAdapter extends ArrayAdapter<User> {
         this.values = values;
     }
 
-    private String[] getNamesList(List<User> list){
-         List<String> names = new ArrayList<String>();
-        for (User user : values) {
-            names.add(user.getFullName());
-        }
-        return names.toArray(new String[]{});
-    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

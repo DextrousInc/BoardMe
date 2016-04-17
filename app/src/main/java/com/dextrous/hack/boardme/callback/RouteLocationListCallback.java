@@ -7,8 +7,8 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.dextrous.hack.boardme.adapter.UserArrayAdapter;
-import com.dextrous.hack.boardme.model.User;
+import com.dextrous.hack.boardme.adapter.RouteLocationListArrayAdapter;
+import com.dextrous.hack.boardme.model.RouteLocation;
 import com.dextrous.hack.boardme.response.GenericListResponse;
 
 import java.util.List;
@@ -17,29 +17,29 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserListCallback implements Callback<GenericListResponse<User>> {
+public class RouteLocationListCallback implements Callback<GenericListResponse<RouteLocation>> {
 
     private Context context;
     private ListView listView;
 
-    public UserListCallback(Context context, ListView listView) {
+    public RouteLocationListCallback(Context context, ListView listView) {
         this.context = context;
         this.listView = listView;
     }
     @Override
-    public void onResponse(Call<GenericListResponse<User>> call, Response<GenericListResponse<User>> response) {
-        GenericListResponse<User> apiResponse = response.body();
+    public void onResponse(Call<GenericListResponse<RouteLocation>> call, Response<GenericListResponse<RouteLocation>> response) {
+        GenericListResponse<RouteLocation> apiResponse = response.body();
         if(apiResponse != null) {
-            List<User> userList = apiResponse.getItems();
-            if(userList != null && !userList.isEmpty()){
-                ListAdapter listAdapter = new UserArrayAdapter(context, userList);
+            List<RouteLocation> routeLocationList = apiResponse.getItems();
+            if(routeLocationList != null && !routeLocationList.isEmpty()){
+                ListAdapter listAdapter = new RouteLocationListArrayAdapter(context, routeLocationList);
                 listView.setAdapter(listAdapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                     @Override
                     public void onItemClick(AdapterView<?> parent, final View view,
                                             int position, long id) {
-                        final User item = (User) parent.getItemAtPosition(position);
+                        final RouteLocation item = (RouteLocation) parent.getItemAtPosition(position);
                         Log.d("Item Selected", item.toString());
                     }
 
@@ -50,7 +50,7 @@ public class UserListCallback implements Callback<GenericListResponse<User>> {
     }
 
     @Override
-    public void onFailure(Call<GenericListResponse<User>> call, Throwable t) {
+    public void onFailure(Call<GenericListResponse<RouteLocation>> call, Throwable t) {
 
     }
 }

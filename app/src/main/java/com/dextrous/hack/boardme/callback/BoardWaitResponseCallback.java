@@ -4,9 +4,12 @@ package com.dextrous.hack.boardme.callback;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.dextrous.hack.boardme.constant.BoardMeConstants;
 import com.dextrous.hack.boardme.response.BoardRouteResponse;
 import com.dextrous.hack.boardme.response.BoardWaitResponse;
 import com.dextrous.hack.boardme.response.GenericBeanResponse;
+
+import java.text.MessageFormat;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,10 +37,11 @@ public class BoardWaitResponseCallback implements Callback<GenericBeanResponse<B
             BoardWaitResponse waitResponse = response.body().getItem();
             currentRouteText.setText(waitResponse.getCloseStop().getRoute().getRouteName());
             currentStopText.setText(waitResponse.getCloseStop().getStopName());
-            etaText.setText("distance of"
-                    + waitResponse.getEta().getDistance()
-                    + " min wait time : "
-                    + waitResponse.getEta().getDuration());
+            etaText.setText(MessageFormat.format(BoardMeConstants.MSG_ESTIMATED_TIME_AND_DISTANCE,
+                    new Object[]{
+                            waitResponse.getEta().getDistance(),
+                            waitResponse.getEta().getDuration()
+                    }));
             Log.d("HTTP RESPONSE", response.body().toString());
         }
     }

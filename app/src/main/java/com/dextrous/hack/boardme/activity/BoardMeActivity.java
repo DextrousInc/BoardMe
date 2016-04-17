@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.dextrous.hack.boardme.R;
 import com.dextrous.hack.boardme.adapter.RouteLocationArrayAdapter;
 import com.dextrous.hack.boardme.callback.BoardRouteResponseCallback;
-import com.dextrous.hack.boardme.constant.BoardmeConstants;
+import com.dextrous.hack.boardme.constant.BoardMeConstants;
 import com.dextrous.hack.boardme.model.BoardMeLocation;
 import com.dextrous.hack.boardme.model.RouteLocation;
 import com.dextrous.hack.boardme.model.User;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 import retrofit2.Call;
 
-import static com.dextrous.hack.boardme.constant.BoardmeConstants.USER_AUTH_KEY_PREFERENCE_KEY;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.USER_AUTH_KEY_PREFERENCE_KEY;
 
 public class BoardMeActivity extends AppCompatActivity {
 
@@ -44,10 +44,10 @@ public class BoardMeActivity extends AppCompatActivity {
         BoardMeAPIService apiService = RetrofitWrapper.build();
 
         Intent intent = getIntent();
-        Object temp = intent.getSerializableExtra(BoardmeConstants.CURRENT_USER_LOCATION_KEY);
+        Object temp = intent.getSerializableExtra(BoardMeConstants.INTENT_PARAM_CURRENT_USER_LOCATION_KEY);
         BoardMeLocation userLocation = temp != null ? (BoardMeLocation)temp : null;
 
-        String beaconId = intent.getStringExtra(BoardmeConstants.NEAREST_BEACON_ID_KEY);
+        String beaconId = intent.getStringExtra(BoardMeConstants.INTENT_PARAM_NEAREST_BEACON_ID_KEY);
         //TODO remove on getting actual beacon ID
         beaconId = beaconId != null ? beaconId : "jdksfh3423479231dsd";
         // API call 2

@@ -8,8 +8,8 @@ import com.google.gson.GsonBuilder;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.dextrous.hack.boardme.constant.BoardmeConstants.LOCAL_SERVER_URL;
-import static com.dextrous.hack.boardme.constant.BoardmeConstants.SERVER_DATE_FORMAT;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.LOCAL_SERVER_URL;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.SERVER_DATE_FORMAT;
 
 public class RetrofitWrapper {
 

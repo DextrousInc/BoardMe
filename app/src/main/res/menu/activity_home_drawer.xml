@@ -3,34 +3,29 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_users"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/nav_link_import" />
+            android:title="@string/nav_link_users" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_routes"
             android:icon="@android:drawable/ic_menu_agenda"
-            android:title="@string/nav_link_gallery" />
+            android:title="@string/nav_link_routes" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_board_me"
             android:icon="@android:drawable/ic_menu_directions"
-            android:title="@string/nav_link_slideshow" />
+            android:title="@string/nav_link_board_me" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_board_wait"
             android:icon="@android:drawable/ic_dialog_map"
-            android:title="@string/nav_link_tools" />
+            android:title="@string/nav_link_board_wait" />
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ic_menu_send"
+            android:title="@string/nav_link_my_history" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@android:drawable/ic_menu_preferences"
+            android:title="@string/nav_link_about" />
     </group>
-
-    <item android:title="@string/nav_section_communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@android:drawable/ic_menu_preferences"
-                android:title="@string/nav_link_about" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/nav_link_settings" />
-        </menu>
-    </item>
 
 </menu>

@@ -11,62 +11,62 @@
     android:layout_alignParentBottom="true"
     android:layout_alignParentTop="true"
     android:layout_marginEnd="6dip"
-    android:contentDescription="TODO"
+    android:contentDescription="@string/label_not_available"
     android:src="@drawable/ic_menu_gallery" />
 
 <TextView
-    android:id="@+id/stopOrderLabel"
-    android:layout_width="80dip"
+    android:id="@+id/fromStopLabel"
+    android:layout_width="40dip"
     android:layout_height="26dip"
     android:layout_toEndOf="@id/icon"
     android:ellipsize="marquee"
     android:textColor="@color/colorAccent"
     android:singleLine="true"
-    android:text="@string/label_stop_order"
+    android:text="@string/label_from_stop"
     android:textSize="12sp"
     android:layout_alignParentBottom="true" />
 
 <TextView
-    android:id="@+id/stopOrderValueLabel"
-    android:layout_width="50dip"
+    android:id="@+id/fromStopValueLabel"
+    android:layout_width="120dip"
     android:layout_height="26dip"
     android:ellipsize="marquee"
     android:textColor="@color/colorAccent"
     android:singleLine="true"
     android:text="@string/label_not_available"
     android:textSize="12sp"
-    android:layout_alignTop="@+id/stopOrderLabel"
-    android:layout_toEndOf="@+id/stopOrderLabel" />
+    android:layout_alignTop="@+id/fromStopLabel"
+    android:layout_toEndOf="@+id/fromStopLabel" />
 
 <TextView
-    android:id="@+id/farePercentValueLabel"
-    android:layout_width="100dip"
+    android:id="@+id/toStopValueLabel"
+    android:layout_width="120dip"
     android:layout_height="26dip"
     android:ellipsize="marquee"
     android:textColor="@color/colorAccent"
     android:singleLine="true"
     android:text="@string/label_not_available"
     android:textSize="12sp"
-    android:layout_below="@+id/stopNameLabel"
-    android:layout_toEndOf="@+id/farePercentLabel" />
+    android:layout_below="@+id/routeInfoLabel"
+    android:layout_toEndOf="@+id/toStopLabel" />
 
 <TextView
-    android:id="@+id/farePercentLabel"
-    android:layout_width="80dip"
+    android:id="@+id/toStopLabel"
+    android:layout_width="30dip"
     android:layout_height="26dip"
     android:ellipsize="marquee"
     android:textColor="@color/colorAccent"
     android:singleLine="true"
-    android:text="@string/label_fare_amount"
+    android:text="@string/label_to_stop"
     android:textSize="12sp"
-    android:layout_below="@+id/stopNameLabel"
-    android:layout_toEndOf="@+id/stopOrderValueLabel" />
+    android:layout_below="@+id/routeInfoLabel"
+    android:layout_toEndOf="@+id/fromStopValueLabel" />
 
 <TextView
-    android:id="@+id/stopNameLabel"
+    android:id="@+id/routeInfoLabel"
     android:layout_width="200dip"
     android:layout_height="wrap_content"
-    android:layout_above="@id/stopOrderLabel"
+    android:layout_above="@id/fromStopLabel"
     android:layout_alignParentEnd="true"
     android:layout_alignParentTop="true"
     android:textColor="@color/colorAccent"
@@ -76,4 +76,12 @@
     android:text="@string/label_not_available"
     android:textSize="16sp" />
 
+    <ImageView
+        android:id="@+id/goIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:contentDescription="@string/label_not_available"
+        android:src="@android:drawable/ic_media_play"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/routeInfoLabel" />
 </RelativeLayout>

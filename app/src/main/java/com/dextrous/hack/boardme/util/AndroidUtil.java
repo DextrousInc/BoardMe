@@ -17,7 +17,7 @@ import com.dextrous.hack.boardme.callback.LocationChangedCallback;
 import com.dextrous.hack.boardme.listener.GPSLocationListener;
 import com.google.gson.Gson;
 
-import static com.dextrous.hack.boardme.constant.BoardmeConstants.APP_SHARED_PREFERENCE_KEY;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.APP_SHARED_PREFERENCE_KEY;
 
 public class AndroidUtil {
     private static final String STRING_BLANK = "";

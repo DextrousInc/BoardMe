@@ -15,6 +15,7 @@ public class TravelHistory implements Serializable{
     private RouteLocation startRoute;
     private User user;
     private Integer userId;
+    private Integer id;
 
     public String getCreatedTS() {
         return createdTS;
@@ -104,6 +105,14 @@ public class TravelHistory implements Serializable{
         this.userId = userId;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "TravelHistory{" +
@@ -118,6 +127,7 @@ public class TravelHistory implements Serializable{
                 ", startRoute=" + startRoute +
                 ", user=" + user +
                 ", userId=" + userId +
+                ", id=" + id +
                 '}';
     }
 }

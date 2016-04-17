@@ -1,6 +1,7 @@
 package com.dextrous.hack.boardme.activity;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -19,11 +20,17 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.dextrous.hack.boardme.R;
+import com.dextrous.hack.boardme.callback.AllRoutesForDialogCallback;
 import com.dextrous.hack.boardme.callback.BoardMeLocationCallback;
 import com.dextrous.hack.boardme.callback.BoardWaitLocationCallback;
 import com.dextrous.hack.boardme.callback.LoginResponseCallback;
+import com.dextrous.hack.boardme.callback.RouteListCallback;
+import com.dextrous.hack.boardme.callback.UserHistoryListCallback;
 import com.dextrous.hack.boardme.callback.UserListCallback;
-import com.dextrous.hack.boardme.constant.BoardmeConstants;
+import com.dextrous.hack.boardme.constant.BoardMeConstants;
+import com.dextrous.hack.boardme.fragment.RoutesDialogFragment;
+import com.dextrous.hack.boardme.model.Route;
+import com.dextrous.hack.boardme.model.TravelHistory;
 import com.dextrous.hack.boardme.model.User;
 import com.dextrous.hack.boardme.response.GenericBeanResponse;
 import com.dextrous.hack.boardme.response.GenericListResponse;
@@ -36,10 +43,10 @@ import java.util.Map;
 
 import retrofit2.Call;
 
-import static com.dextrous.hack.boardme.constant.BoardmeConstants.USER_AUTH_KEY_PREFERENCE_KEY;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.USER_AUTH_KEY_PREFERENCE_KEY;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, RoutesDialogFragment.RouteSelectionFragmentListener {
 
     Activity self = this;
     @Override
@@ -47,7 +54,7 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         self = this;
         setContentView(R.layout.activity_home);
-        User userAuth = AndroidUtil.getPreferenceAsObject(getApplicationContext(), BoardmeConstants.USER_AUTH_KEY_PREFERENCE_KEY, User.class);
+        User userAuth = AndroidUtil.getPreferenceAsObject(getApplicationContext(), BoardMeConstants.USER_AUTH_KEY_PREFERENCE_KEY, User.class);
         if(userAuth != null) {
             TextView usernameText = (TextView) findViewById(R.id.usernameValueLabel);
             TextView useremailText = (TextView) findViewById(R.id.useremailValueLabel);
@@ -144,30 +151,39 @@ public class HomeActivity extends AppCompatActivity
         final ViewFlipper flipper = (ViewFlipper)findViewById(R.id.navigation_flip_view);
         String BASE_URL = getResources().getString(R.string.base_api_url);
         final BoardMeAPIService apiService = RetrofitWrapper.build();
+        RetrofitWrapper.start(BASE_URL);
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         String userAuthKey = AndroidUtil.getStringPreferenceValue(getApplicationContext(), USER_AUTH_KEY_PREFERENCE_KEY);
         if("".equals(userAuthKey)) {
             switch (id) {
-                case R.id.nav_camera:
-                case R.id.nav_slideshow:
-                case R.id.nav_manage:
+                case R.id.nav_history:
+                case R.id.nav_board_me:
+                case R.id.nav_board_wait:
                     // Redirect to login page
-                    flipper.setDisplayedChild(0);
+                    flipper.setDisplayedChild(6);
                     initLoginView();
+                    break;
+                case R.id.nav_about:
+                case R.id.nav_users:
+                case R.id.nav_routes:
+                    // ignore the non auth screens
                     break;
             }
         } else {
-            if (id == R.id.nav_camera) {
-                flipper.setDisplayedChild(1);
-                // Handle the camera action
-            } else if (id == R.id.nav_gallery) {
+             if (id == R.id.nav_about) {
+                flipper.setDisplayedChild(0);
+            } else if (id == R.id.nav_users) {
+                 flipper.setDisplayedChild(1);
+                 // API call
+                 Call<GenericListResponse<User>> userCall = apiService.getAllUsers();
+                 userCall.enqueue(new UserListCallback(getApplicationContext(), (ListView) findViewById(R.id.userListView)));
+             }  else if (id == R.id.nav_routes) {
                 flipper.setDisplayedChild(2);
-                // API call 1
-                RetrofitWrapper.start(BASE_URL);
-                Call<GenericListResponse<User>> userCall = apiService.getAllUsers();
-                userCall.enqueue(new UserListCallback(getApplicationContext(), (ListView) findViewById(R.id.listView)));
-            } else if (id == R.id.nav_slideshow) {
+                 // API call
+                 Call<GenericListResponse<Route>> routesCall = apiService.getAllRoutes();
+                 routesCall.enqueue(new RouteListCallback(getApplicationContext(), (ListView) findViewById(R.id.routeListView)));
+            } else if (id == R.id.nav_board_me) {
                 flipper.setDisplayedChild(3);
                 Button boardmeButton = (Button) findViewById(R.id.boardmeButton);
                 if (boardmeButton != null) {
@@ -175,34 +191,45 @@ public class HomeActivity extends AppCompatActivity
                         @Override
                         public void onClick(View v) {
                             if (AndroidUtil.checkGPSEnabled(getApplicationContext(), true)) {
+                                // Listener call
                                 AndroidUtil.getLocationsHandler(self, new BoardMeLocationCallback(getApplicationContext()));
                             }
                         }
                     });
                 }
-            } else if (id == R.id.nav_manage) {
+            } else if (id == R.id.nav_board_wait) {
                 flipper.setDisplayedChild(4);
                 Button boardwaitButton = (Button) findViewById(R.id.boardwaitButton);
                 if (boardwaitButton != null) {
                     boardwaitButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (AndroidUtil.checkGPSEnabled(getApplicationContext(), true)) {
-                                AndroidUtil.getLocationsHandler(self, new BoardWaitLocationCallback(getApplicationContext()));
-                            }
+                            FragmentManager fragmentManager = getFragmentManager();
+                            Call<GenericListResponse<Route>> allRoutesCall = apiService.getAllRoutes();
+                            allRoutesCall.enqueue(new AllRoutesForDialogCallback(fragmentManager));
                         }
                     });
                 }
-            } else if (id == R.id.nav_share) {
-                flipper.setDisplayedChild(4);
-            } else if (id == R.id.nav_send) {
-
-            }
+            } else if (id == R.id.nav_history) {
+                 // Handle the camera action
+                 flipper.setDisplayedChild(5);
+                 User userAuthObject = AndroidUtil.getPreferenceAsObject(getApplicationContext(), BoardMeConstants.USER_AUTH_KEY_PREFERENCE_KEY, User.class);
+                 // API call
+                 Call<GenericListResponse<TravelHistory>> userHistoryCall = apiService.getUserTravelHistory(String.valueOf(userAuthObject.getId()));
+                 userHistoryCall.enqueue(new UserHistoryListCallback(getApplicationContext(), (ListView) findViewById(R.id.travelListView)));
+             }
         }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onRouteSelectConfirmation(Route selectedRoute) {
+        if (AndroidUtil.checkGPSEnabled(getApplicationContext(), true)) {
+            AndroidUtil.getLocationsHandler(self, new BoardWaitLocationCallback(getApplicationContext(), selectedRoute));
+        }
     }
 }

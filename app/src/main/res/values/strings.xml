@@ -3,13 +3,12 @@
     <string name="developer_email">rajagopal.a.dinesh.28@gmail.com</string>
     <string name="user_email">useremail</string>
 
-    <string name="nav_link_import">Import</string>
-    <string name="nav_link_gallery">Gallery</string>
-    <string name="nav_link_slideshow">Slideshow</string>
-    <string name="nav_link_tools">Tools</string>
-    <string name="nav_section_communicate">Communicate</string>
-    <string name="nav_link_about">Share</string>
-    <string name="nav_link_settings">Send</string>
+    <string name="nav_link_users">Users</string>
+    <string name="nav_link_routes">Routes</string>
+    <string name="nav_link_board_me">BoardMe</string>
+    <string name="nav_link_board_wait">BoardWait</string>
+    <string name="nav_link_about">About</string>
+    <string name="nav_link_my_history">MyHistory</string>
 
     <string name="action_settings">Settings</string>
     <string name="base_api_url">http://10.0.2.2:8090/api/</string>
@@ -19,10 +18,16 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="title_fragment_routes">Choose route</string>
+
     <string name="label_username">Username</string>
     <string name="label_password">Password</string>
     <string name="label_current_route">Current Route</string>
     <string name="label_current_stop">Chosen stop</string>
+    <string name="label_stop_order">Stop Order</string>
+    <string name="label_from_stop">From</string>
+    <string name="label_to_stop">To</string>
+    <string name="label_stop_count">Stop under route</string>
     <string name="label_not_available">N/A</string>
     <string name="label_destination">Chosen Destination</string>
     <string name="label_choose_destination">Choose Destination</string>
@@ -31,6 +36,17 @@
     <string name="label_fare_amount">Fare Amount</string>
     <string name="label_home_logo_desc">Home Logo</string>
 
+    <string name="label_about_app">About App</string>
+    <string name="label_about_developer">About Developer</string>
+    <string name="text_about_developer">Tech enthusiast. Love to code. Interested in all super-duper coding languages. Java crazy.
+        Interested in working on top notch technologies and solving real world problems.
+    </string>
+    <string name="text_about_app">A beacon interfaced mobile application that interfaces with some beacon in the bus.
+        The prime functionality is to help a passenger who’s is yet to board the bus to determine how much time he/she should wait
+        for the bus before it arrives in to his/her nearer bus stop.
+        The mobile application intakes the location of the bus from the passenger who has boarded the bus already in a
+        stop away from the waiting passenger but on the same direction/route the boarded passenger is actually travelling.</string>
+
     <string name="label_login_action">Login</string>
     <string name="label_pay_action">Pay Now</string>
 
@@ -38,7 +54,11 @@
     <string name="label_board_wait_action">BoardWait</string>
     <string name="title_activity_board_me">BoardMeActivity</string>
     <string name="title_activity_board_wait">BoardWait</string>
+    <string name="title_activity_route_location_list">Route Details</string>
     <string name="title_activity_travel_history_item">Ticket Details</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

@@ -49,6 +49,15 @@
                 android:value="com.dextrous.hack.boardme.activity.HomeActivity" />
         </activity>
         <activity
+            android:name=".activity.RouteLocationListActivity"
+            android:label="@string/title_activity_route_location_list"
+            android:parentActivityName=".activity.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dextrous.hack.boardme.activity.HomeActivity" />
+        </activity>
+        <activity
             android:name=".activity.TravelHistoryItemActivity"
             android:label="@string/title_activity_travel_history_item"
             android:parentActivityName=".activity.HomeActivity"

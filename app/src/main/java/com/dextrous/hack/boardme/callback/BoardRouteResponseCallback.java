@@ -10,7 +10,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.dextrous.hack.boardme.R;
-import com.dextrous.hack.boardme.constant.BoardmeConstants;
+import com.dextrous.hack.boardme.constant.BoardMeConstants;
 import com.dextrous.hack.boardme.model.RouteLocation;
 import com.dextrous.hack.boardme.model.TravelHistory;
 import com.dextrous.hack.boardme.model.User;
@@ -49,7 +49,7 @@ public class BoardRouteResponseCallback implements Callback<BoardRouteResponse> 
 
     @Override
     public void onResponse(Call<BoardRouteResponse> call, Response<BoardRouteResponse> response) {
-        final User loggedUser = AndroidUtil.getPreferenceAsObject(context, BoardmeConstants.USER_AUTH_KEY_PREFERENCE_KEY, User.class);
+        final User loggedUser = AndroidUtil.getPreferenceAsObject(context, BoardMeConstants.USER_AUTH_KEY_PREFERENCE_KEY, User.class);
         if(response.isSuccessful()
                 && response.body() != null
                 && response.body().getSelectedRoute() != null

@@ -13,7 +13,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.dextrous.hack.boardme.constant.BoardmeConstants.USER_AUTH_KEY_PREFERENCE_KEY;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.USER_AUTH_KEY_PREFERENCE_KEY;
 
 
 public class LoginResponseCallback implements Callback<GenericBeanResponse<User>> {
