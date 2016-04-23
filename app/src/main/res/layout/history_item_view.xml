@@ -74,7 +74,7 @@
     android:layout_toEndOf="@id/icon"
     android:gravity="center_vertical"
     android:text="@string/label_not_available"
-    android:textSize="16sp" />
+    android:textSize="12sp" />
 
     <ImageView
         android:id="@+id/goIcon"
@@ -84,4 +84,5 @@
         android:src="@android:drawable/ic_media_play"
         android:layout_alignParentTop="true"
         android:layout_alignEnd="@+id/historyInfoLabel" />
+
 </RelativeLayout>

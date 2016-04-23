@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -19,7 +18,6 @@ import com.dextrous.hack.boardme.response.GenericListResponse;
 
 import java.text.MessageFormat;
 import java.util.List;
-import java.util.Objects;
 
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.INTENT_PARAM_ROUTES_RESPONSE_KEY;
 

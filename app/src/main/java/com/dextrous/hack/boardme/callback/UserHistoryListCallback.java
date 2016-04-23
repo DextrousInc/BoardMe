@@ -9,11 +9,9 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.dextrous.hack.boardme.activity.TravelHistoryItemActivity;
-import com.dextrous.hack.boardme.adapter.UserArrayAdapter;
 import com.dextrous.hack.boardme.adapter.UserHistoryArrayAdapter;
 import com.dextrous.hack.boardme.constant.BoardMeConstants;
 import com.dextrous.hack.boardme.model.TravelHistory;
-import com.dextrous.hack.boardme.model.User;
 import com.dextrous.hack.boardme.response.GenericListResponse;
 
 import java.util.List;
@@ -22,13 +20,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserHistoryListCallback implements Callback<GenericListResponse<TravelHistory>> {
+public class UserHistoryListCallback extends BaseCallback implements Callback<GenericListResponse<TravelHistory>> {
 
-    private Context context;
     private ListView listView;
 
     public UserHistoryListCallback(Context context, ListView listView) {
-        this.context = context;
+        super(context);
         this.listView = listView;
     }
     @Override
@@ -57,10 +54,12 @@ public class UserHistoryListCallback implements Callback<GenericListResponse<Tra
             }
             Log.d("HTTP RESPONSE", apiResponse.toString());
         }
+        hideDialog();
     }
 
     @Override
     public void onFailure(Call<GenericListResponse<TravelHistory>> call, Throwable t) {
-        Log.e("HTTP RESPONSE",call.toString(),  t);
+        Log.e("HTTP RESPONSE",t.getMessage(),  t);
+        hideDialog();
     }
 }

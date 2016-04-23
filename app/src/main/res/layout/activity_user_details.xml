@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activity.TravelHistoryItemActivity">
+    tools:context="com.dextrous.hack.boardme.activity.UserDetailsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -29,8 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/label_current_route"
-            android:id="@+id/currentRouteLabel"
+            android:text="@string/label_full_name"
+            android:id="@+id/fullNameLabel"
             android:layout_marginTop="93dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
@@ -40,79 +40,79 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/label_not_available"
-            android:id="@+id/currentRouteValueLabel"
-            android:layout_alignTop="@+id/currentRouteLabel"
+            android:id="@+id/fullNameValueLabel"
+            android:layout_alignTop="@+id/fullNameLabel"
             android:layout_centerHorizontal="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/label_current_stop"
-            android:id="@+id/currentStopLabel"
+            android:text="@string/label_username"
+            android:id="@+id/usernameLabel"
             android:layout_marginTop="45dp"
-            android:layout_below="@+id/currentRouteLabel"
+            android:layout_below="@+id/fullNameLabel"
             android:layout_alignParentStart="true"
-            android:layout_alignBottom="@+id/chosenDestinationLabel"
-            android:layout_toStartOf="@+id/currentRouteValueLabel" />
+            android:layout_alignBottom="@+id/emailLabel"
+            android:layout_toStartOf="@+id/fullNameValueLabel" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/label_not_available"
-            android:id="@+id/currentStopValueLabel"
-            android:layout_alignTop="@+id/currentStopLabel"
-            android:layout_alignStart="@+id/currentRouteValueLabel" />
+            android:id="@+id/usernameValueLabel"
+            android:layout_alignTop="@+id/usernameLabel"
+            android:layout_alignStart="@+id/fullNameValueLabel" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/label_destination"
-            android:id="@+id/chosenDestinationLabel"
+            android:text="@string/label_email"
+            android:id="@+id/emailLabel"
             android:layout_marginTop="129dp"
-            android:layout_below="@+id/currentRouteLabel"
+            android:layout_below="@+id/fullNameLabel"
             android:layout_alignParentStart="true"
-            android:layout_alignEnd="@+id/currentStopLabel" />
+            android:layout_alignEnd="@+id/usernameLabel" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/label_not_available"
-            android:id="@+id/selectedDestinationValueLabel"
-            android:layout_alignBottom="@+id/chosenDestinationLabel"
-            android:layout_alignStart="@+id/currentStopValueLabel" />
+            android:id="@+id/emailValueLabel"
+            android:layout_alignBottom="@+id/emailLabel"
+            android:layout_alignStart="@+id/usernameValueLabel" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/label_fare_amount"
-            android:id="@+id/fareLabel"
+            android:text="@string/label_currency_type"
+            android:id="@+id/currencyTypeLabel"
             android:layout_marginTop="63dp"
-            android:layout_below="@+id/chosenDestinationLabel"
+            android:layout_below="@+id/emailLabel"
             android:layout_alignParentStart="true"
-            android:layout_alignEnd="@+id/travelledTSLabel" />
+            android:layout_alignEnd="@+id/fullNameLabel" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/label_not_available"
-            android:id="@+id/fareValueLabel"
-            android:layout_alignTop="@+id/fareLabel"
-            android:layout_alignBottom="@+id/fareLabel"
-            android:layout_alignStart="@+id/selectedDestinationValueLabel" />
+            android:id="@+id/currencyTypeValueLabel"
+            android:layout_alignTop="@+id/currencyTypeLabel"
+            android:layout_alignBottom="@+id/currencyTypeLabel"
+            android:layout_alignStart="@+id/emailValueLabel" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/label_travelled_on"
-            android:id="@+id/travelledTSLabel"
+            android:text="@string/label_wallet_amount"
+            android:id="@+id/walletAmountLabel"
             android:layout_marginTop="53dp"
-            android:layout_below="@+id/fareLabel"
+            android:layout_below="@+id/currencyTypeLabel"
             android:layout_alignParentStart="true" />
 
         <TextView
@@ -120,9 +120,11 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/label_not_available"
-            android:layout_alignTop="@+id/travelledTSLabel"
-            android:layout_alignStart="@+id/fareValueLabel"
-            android:id="@+id/travelledTSValue" />
+            android:layout_alignTop="@+id/walletAmountLabel"
+            android:layout_alignStart="@+id/currencyTypeValueLabel"
+            android:id="@+id/walletAmountValue" />
 
     </RelativeLayout>
+
+
 </android.support.design.widget.CoordinatorLayout>

@@ -6,8 +6,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.dextrous.hack.boardme.adapter.RouteLocationListArrayAdapter;
+import com.dextrous.hack.boardme.constant.BoardMeConstants;
 import com.dextrous.hack.boardme.model.RouteLocation;
 import com.dextrous.hack.boardme.response.GenericListResponse;
 
@@ -17,13 +19,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RouteLocationListCallback implements Callback<GenericListResponse<RouteLocation>> {
+public class RouteLocationListCallback extends BaseCallback implements Callback<GenericListResponse<RouteLocation>> {
 
-    private Context context;
     private ListView listView;
 
     public RouteLocationListCallback(Context context, ListView listView) {
-        this.context = context;
+        super(context);
         this.listView = listView;
     }
     @Override
@@ -47,10 +48,13 @@ public class RouteLocationListCallback implements Callback<GenericListResponse<R
             }
             Log.d("HTTP RESPONSE", apiResponse.toString());
         }
+        hideDialog();
     }
 
     @Override
     public void onFailure(Call<GenericListResponse<RouteLocation>> call, Throwable t) {
-
+        Log.e("HTTP ERROR", t.getMessage(), t);
+        Toast.makeText(context, BoardMeConstants.MSG_GENERIC_ERROR + t.getMessage(), Toast.LENGTH_LONG).show();
+        hideDialog();
     }
 }

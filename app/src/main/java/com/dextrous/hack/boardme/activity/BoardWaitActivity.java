@@ -24,6 +24,7 @@ import retrofit2.Call;
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.USER_AUTH_KEY_PREFERENCE_KEY;
 
 public class BoardWaitActivity extends AppCompatActivity {
+    String TAG = BoardWaitActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +34,9 @@ public class BoardWaitActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         String BASE_URL = getResources().getString(R.string.base_api_url);
-        Log.d("BASE_URL", BASE_URL);
+        Log.d(TAG, "BASE_URL=" + BASE_URL);
 
-        RetrofitWrapper.start(BASE_URL);
-        BoardMeAPIService apiService = RetrofitWrapper.build();
+        BoardMeAPIService apiService = RetrofitWrapper.build(BASE_URL);
 
         Intent intent = getIntent();
         Object temp = intent.getSerializableExtra(BoardMeConstants.INTENT_PARAM_CURRENT_USER_LOCATION_KEY);
@@ -45,12 +45,10 @@ public class BoardWaitActivity extends AppCompatActivity {
         temp = intent.getSerializableExtra(BoardMeConstants.INTENT_PARAM_SELECTED_ROUTE_KEY);
         Route selectedRoute = temp != null ? (Route)temp : null;
 
-        String beaconId = intent.getStringExtra(BoardMeConstants.INTENT_PARAM_NEAREST_BEACON_ID_KEY);
-        //TODO remove on getting actual beacon ID
         // API call 3
         User userAuthObject = AndroidUtil.getPreferenceAsObject(getApplicationContext(), USER_AUTH_KEY_PREFERENCE_KEY, User.class);
-        System.out.println("User auth=" + userAuthObject);
-        System.out.println("userLocation=" + userLocation);
+        Log.d(TAG, "User auth=" + userAuthObject);
+        Log.d(TAG, "userLocation=" + userLocation);
         if(userAuthObject != null
                 && userLocation != null
                 && selectedRoute != null) {
@@ -62,7 +60,10 @@ public class BoardWaitActivity extends AppCompatActivity {
             TextView currentRouteText = (TextView) findViewById(R.id.currentRouteValueLabel);
             TextView currentStopText = (TextView) findViewById(R.id.currentStopValueLabel);
             TextView etaValueText = (TextView) findViewById(R.id.etaValueLabel);
-            boardWaitCall.enqueue(new BoardWaitResponseCallback(currentRouteText, currentStopText, etaValueText));
+            boardWaitCall.enqueue(new BoardWaitResponseCallback(this,
+                    currentRouteText,
+                    currentStopText,
+                    etaValueText));
         }
 
 

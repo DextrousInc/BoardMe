@@ -4,6 +4,7 @@ package com.dextrous.hack.boardme.callback;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.dextrous.hack.boardme.activity.TravelHistoryItemActivity;
 import com.dextrous.hack.boardme.constant.BoardMeConstants;
@@ -14,12 +15,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BoardMePayTicketResponseCallback implements Callback<GenericBeanResponse<TravelHistory>> {
+public class BoardMePayTicketResponseCallback extends BaseCallback  implements Callback<GenericBeanResponse<TravelHistory>> {
 
-    private Context context;
 
     public BoardMePayTicketResponseCallback(Context context) {
-        this.context = context;
+        super(context);
     }
 
     @Override
@@ -32,13 +32,16 @@ public class BoardMePayTicketResponseCallback implements Callback<GenericBeanRes
             Intent intent = new Intent(context, TravelHistoryItemActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(BoardMeConstants.INTENT_PARAM_TRAVEL_HISTORY_ITEM_KEY, travelHistory);
-            context.startActivity(intent);
             Log.d("HTTP RESPONSE", travelHistory.toString());
+            context.startActivity(intent);
         }
+        hideDialog();
     }
 
     @Override
     public void onFailure(Call<GenericBeanResponse<TravelHistory>> call, Throwable t) {
         Log.e("HTTP ERROR", t.getMessage(), t);
+        Toast.makeText(context, BoardMeConstants.MSG_GENERIC_ERROR + t.getMessage(), Toast.LENGTH_LONG).show();
+        hideDialog();
     }
 }

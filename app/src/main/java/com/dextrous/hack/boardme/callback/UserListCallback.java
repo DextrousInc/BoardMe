@@ -1,13 +1,17 @@
 package com.dextrous.hack.boardme.callback;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.dextrous.hack.boardme.activity.UserDetailsActivity;
 import com.dextrous.hack.boardme.adapter.UserArrayAdapter;
+import com.dextrous.hack.boardme.constant.BoardMeConstants;
 import com.dextrous.hack.boardme.model.User;
 import com.dextrous.hack.boardme.response.GenericListResponse;
 
@@ -17,18 +21,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserListCallback implements Callback<GenericListResponse<User>> {
-
-    private Context context;
+public class UserListCallback extends BaseCallback implements Callback<GenericListResponse<User>> {
     private ListView listView;
 
     public UserListCallback(Context context, ListView listView) {
-        this.context = context;
+        super(context);
         this.listView = listView;
     }
     @Override
     public void onResponse(Call<GenericListResponse<User>> call, Response<GenericListResponse<User>> response) {
         GenericListResponse<User> apiResponse = response.body();
+        System.out.println(response);
         if(apiResponse != null) {
             List<User> userList = apiResponse.getItems();
             if(userList != null && !userList.isEmpty()){
@@ -41,16 +44,23 @@ public class UserListCallback implements Callback<GenericListResponse<User>> {
                                             int position, long id) {
                         final User item = (User) parent.getItemAtPosition(position);
                         Log.d("Item Selected", item.toString());
+                        Intent intent = new Intent(context, UserDetailsActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra(BoardMeConstants.INTENT_PARAM_USER_ITEM_KEY, item);
+                        context.startActivity(intent);
                     }
 
                 });
             }
             Log.d("HTTP RESPONSE", apiResponse.toString());
         }
+        hideDialog();
     }
 
     @Override
     public void onFailure(Call<GenericListResponse<User>> call, Throwable t) {
-
+        Log.e("HTTP ERROR", t.getMessage(), t);
+        Toast.makeText(context, BoardMeConstants.MSG_GENERIC_ERROR + t.getMessage(), Toast.LENGTH_LONG).show();
+        hideDialog();
     }
 }

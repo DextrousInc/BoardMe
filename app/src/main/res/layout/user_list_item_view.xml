@@ -40,5 +40,12 @@
     android:gravity="center_vertical"
     android:text="Example application"
     android:textSize="16sp" />
-
+    <ImageView
+        android:id="@+id/goIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:contentDescription="@string/label_not_available"
+        android:src="@android:drawable/ic_media_play"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/firstLine" />
 </RelativeLayout>

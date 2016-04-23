@@ -1,7 +1,7 @@
 package com.dextrous.hack.boardme.listener;
 
 import android.Manifest;
-import android.content.Context;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -21,12 +21,14 @@ public class GPSLocationListener implements LocationListener {
 
     public LocationChangedCallback callback;
     private LocationManager locationManager;
-    private Context context;
+    private Activity callingActivity;
 
-    public GPSLocationListener(Context context, LocationChangedCallback callback, LocationManager locationManager) {
+    public GPSLocationListener(Activity callingActivity,
+                               LocationChangedCallback callback,
+                               LocationManager locationManager) {
         this.callback = callback;
         this.locationManager = locationManager;
-        this.context = context;
+        this.callingActivity = callingActivity;
     }
 
     public GPSLocationListener() {
@@ -40,19 +42,12 @@ public class GPSLocationListener implements LocationListener {
         callback.setLocation(loc);
         String latitude = "Latitude: " + loc.getLatitude();
         Log.d(TAG, latitude);
-        if (context!=null
+        if (callingActivity != null
                 && locationManager != null) {
-            if (ActivityCompat.checkSelfPermission(context,
+            if (ActivityCompat.checkSelfPermission(callingActivity.getApplicationContext(),
                     Manifest.permission.ACCESS_FINE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED){
-                AndroidUtil.showAlertDialog(context, "","");
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
+                AndroidUtil.promptLocationPermission(callingActivity);
                 return;
             }
             locationManager.removeUpdates(this);

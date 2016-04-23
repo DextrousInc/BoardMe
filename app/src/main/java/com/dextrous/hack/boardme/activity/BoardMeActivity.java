@@ -29,7 +29,7 @@ import retrofit2.Call;
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.USER_AUTH_KEY_PREFERENCE_KEY;
 
 public class BoardMeActivity extends AppCompatActivity {
-
+    String TAG = BoardMeActivity.class.getName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,22 +38,19 @@ public class BoardMeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         String BASE_URL = getResources().getString(R.string.base_api_url);
-        Log.d("BASE_URL", BASE_URL);
+        Log.d(TAG, "BASE_URL="+ BASE_URL);
 
-        RetrofitWrapper.start(BASE_URL);
-        BoardMeAPIService apiService = RetrofitWrapper.build();
+        BoardMeAPIService apiService = RetrofitWrapper.build(BASE_URL);
 
         Intent intent = getIntent();
         Object temp = intent.getSerializableExtra(BoardMeConstants.INTENT_PARAM_CURRENT_USER_LOCATION_KEY);
         BoardMeLocation userLocation = temp != null ? (BoardMeLocation)temp : null;
 
         String beaconId = intent.getStringExtra(BoardMeConstants.INTENT_PARAM_NEAREST_BEACON_ID_KEY);
-        //TODO remove on getting actual beacon ID
-        beaconId = beaconId != null ? beaconId : "jdksfh3423479231dsd";
         // API call 2
         User userAuthObject = AndroidUtil.getPreferenceAsObject(getApplicationContext(), USER_AUTH_KEY_PREFERENCE_KEY, User.class);
-        System.out.println("User auth=" + userAuthObject);
-        System.out.println("userLocation=" + userLocation);
+        Log.d(TAG, "User auth=" + userAuthObject);
+        Log.d(TAG, "userLocation=" + userLocation);
         if(userAuthObject != null
                 && userLocation != null) {
             Call<BoardRouteResponse> boardMeCall = apiService.getBoardingRouteData(beaconId,
@@ -68,7 +65,7 @@ public class BoardMeActivity extends AppCompatActivity {
                     new ArrayList<RouteLocation>());
             routeLocationsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             destinationsSpinner.setAdapter(routeLocationsArrayAdapter);
-            boardMeCall.enqueue(new BoardRouteResponseCallback(getApplicationContext(), destinationsSpinner,
+            boardMeCall.enqueue(new BoardRouteResponseCallback(this, destinationsSpinner,
                                                             currentRouteText, currentStopText,
                                                             routeLocationsArrayAdapter, payNowButton));
         }

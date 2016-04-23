@@ -1,6 +1,7 @@
 package com.dextrous.hack.boardme.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +11,13 @@ import android.widget.TextView;
 import com.dextrous.hack.boardme.R;
 import com.dextrous.hack.boardme.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserArrayAdapter extends ArrayAdapter<User> {
 
     private final Context context;
     private final List<User> values;
+    String TAG = UserArrayAdapter.class.getName();
 
     public UserArrayAdapter(Context context, List<User> values) {
         super(context, -1, values);
@@ -36,7 +37,7 @@ public class UserArrayAdapter extends ArrayAdapter<User> {
         textView.setText(item.getFullName());
         // change the icon for Windows and iPhone
         textView2.setText(item.getEmail());
-        System.out.println(item);
+        Log.d(TAG, item.toString());
         return rowView;
     }
 

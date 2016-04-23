@@ -27,14 +27,15 @@ public class TravelHistoryItemActivity extends AppCompatActivity {
         TextView selectedStartRouteText = (TextView) findViewById(R.id.currentStopValueLabel);
         TextView selectedEndRouteText = (TextView) findViewById(R.id.selectedDestinationValueLabel);
         TextView fareAmountText = (TextView) findViewById(R.id.fareValueLabel);
+        TextView traveledTSText = (TextView) findViewById(R.id.travelledTSValue);
         if(temp != null
                 && temp instanceof  TravelHistory) {
             TravelHistory travelHistory = (TravelHistory) temp;
-            System.out.println(temp);
             selectedRouteText.setText(travelHistory.getStartRoute().getRoute().getRouteName());
             selectedStartRouteText.setText(travelHistory.getStartRoute().getStopName());
             selectedEndRouteText.setText(travelHistory.getEndRoute().getStopName());
             fareAmountText.setText(travelHistory.getUser().getCurrencyType() + travelHistory.getFareAmount());
+            traveledTSText.setText(travelHistory.getCreatedTS());
         } else {
             temp = getIntent().getSerializableExtra(BoardMeConstants.INTENT_PARAM_TRAVEL_HISTORY_ITEM_ID_KEY);
             if (temp != null) {
@@ -44,8 +45,7 @@ public class TravelHistoryItemActivity extends AppCompatActivity {
                 String BASE_URL = getResources().getString(R.string.base_api_url);
                 Log.d("BASE_URL", BASE_URL);
 
-                RetrofitWrapper.start(BASE_URL);
-                BoardMeAPIService apiService = RetrofitWrapper.build();
+                BoardMeAPIService apiService = RetrofitWrapper.build(BASE_URL);
 
             }
         }

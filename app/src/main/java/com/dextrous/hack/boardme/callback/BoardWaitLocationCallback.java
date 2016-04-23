@@ -12,14 +12,12 @@ import static com.dextrous.hack.boardme.constant.BoardMeConstants.INTENT_PARAM_C
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.INTENT_PARAM_SELECTED_ROUTE_KEY;
 
 
-public class BoardWaitLocationCallback implements LocationChangedCallback {
+public class BoardWaitLocationCallback extends BaseCallback implements LocationChangedCallback {
 
-    private Context context;
     private Route selectedRoute;
 
     public BoardWaitLocationCallback(Context context, Route selectedRoute) {
-
-        this.context = context;
+        super(context);
         this.selectedRoute = selectedRoute;
     }
     @Override
@@ -29,6 +27,7 @@ public class BoardWaitLocationCallback implements LocationChangedCallback {
         intent.putExtra(INTENT_PARAM_CURRENT_USER_LOCATION_KEY, boardMeLocation);
         intent.putExtra(INTENT_PARAM_SELECTED_ROUTE_KEY, selectedRoute);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        hideDialog();
         context.startActivity(intent);
     }
 }

@@ -1,6 +1,7 @@
 package com.dextrous.hack.boardme.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +13,13 @@ import com.dextrous.hack.boardme.constant.BoardMeConstants;
 import com.dextrous.hack.boardme.model.Route;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RouteArrayAdapter extends ArrayAdapter<Route> {
 
     private final Context context;
     private final List<Route> values;
+    String TAG = RouteArrayAdapter.class.getName();
 
     public RouteArrayAdapter(Context context, List<Route> values) {
         super(context, -1, values);
@@ -46,7 +47,7 @@ public class RouteArrayAdapter extends ArrayAdapter<Route> {
             // change the icon for Windows and iPhone
             fromStopText.setText(item.getRouteStart());
             toStopText.setText(item.getRouteEnd());
-            System.out.println(item);
+            Log.d(TAG, item.toString());
         }
         return rowView;
     }

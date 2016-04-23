@@ -1,6 +1,7 @@
 package com.dextrous.hack.boardme.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +11,15 @@ import android.widget.TextView;
 import com.dextrous.hack.boardme.R;
 import com.dextrous.hack.boardme.constant.BoardMeConstants;
 import com.dextrous.hack.boardme.model.TravelHistory;
-import com.dextrous.hack.boardme.model.User;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserHistoryArrayAdapter extends ArrayAdapter<TravelHistory> {
 
     private final Context context;
     private final List<TravelHistory> values;
+    String TAG = UserHistoryArrayAdapter.class.getName();
 
     public UserHistoryArrayAdapter(Context context, List<TravelHistory> values) {
         super(context, -1, values);
@@ -35,7 +35,6 @@ public class UserHistoryArrayAdapter extends ArrayAdapter<TravelHistory> {
         TextView fromStopText = (TextView) rowView.findViewById(R.id.fromStopValueLabel);
         TextView toStopText = (TextView) rowView.findViewById(R.id.toStopValueLabel);
         TravelHistory item = values.get(position);
-        System.out.println("getting view");
         if(historyInfoText != null
                 && fromStopText != null
                 && toStopText != null) {
@@ -47,7 +46,7 @@ public class UserHistoryArrayAdapter extends ArrayAdapter<TravelHistory> {
             fromStopText.setText(item.getStartRoute().getStopName());
             toStopText.setText(item.getEndRoute().getStopName());
         }
-        System.out.println(item);
+        Log.d(TAG, item.toString());
         return rowView;
     }
 

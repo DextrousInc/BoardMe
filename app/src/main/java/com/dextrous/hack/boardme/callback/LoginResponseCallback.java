@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.dextrous.hack.boardme.constant.BoardMeConstants;
 import com.dextrous.hack.boardme.model.User;
 import com.dextrous.hack.boardme.response.GenericBeanResponse;
 import com.dextrous.hack.boardme.util.AndroidUtil;
@@ -16,24 +17,23 @@ import retrofit2.Response;
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.USER_AUTH_KEY_PREFERENCE_KEY;
 
 
-public class LoginResponseCallback implements Callback<GenericBeanResponse<User>> {
+public class LoginResponseCallback extends BaseCallback implements Callback<GenericBeanResponse<User>> {
 
     private int indexOfTab;
     private ViewFlipper flipper;
-    private Context context;
 
     public LoginResponseCallback(Context context, ViewFlipper flipper, int tabIndex) {
+        super(context);
         this.flipper = flipper;
         this.indexOfTab = tabIndex;
-        this.context = context;
     }
 
     @Override
     public void onResponse(Call<GenericBeanResponse<User>> call, Response<GenericBeanResponse<User>> response) {
 
         GenericBeanResponse<User> apiResponse = response.body();
-        if(response != null) {
-        Log.d("HTTP RESPONSE", response.body().toString());
+        if(apiResponse != null ) {
+            Log.d("HTTP RESPONSE", response.body().toString());
             if(apiResponse.getSuccess()){
                 User user = apiResponse.getItem();
                 AndroidUtil.setObjectPreferenceAsString(context, USER_AUTH_KEY_PREFERENCE_KEY, user);
@@ -43,11 +43,13 @@ public class LoginResponseCallback implements Callback<GenericBeanResponse<User>
                 Toast.makeText(context, "Error authenticating!!!" + apiResponse.getError(), Toast.LENGTH_LONG).show();
             }
         }
-
+        hideDialog();
     }
 
     @Override
     public void onFailure(Call<GenericBeanResponse<User>> call, Throwable t) {
-
+        Log.e("HTTP ERROR", t.getMessage(), t);
+        Toast.makeText(context, BoardMeConstants.MSG_GENERIC_ERROR +t.getMessage(), Toast.LENGTH_LONG).show();
+        hideDialog();
     }
 }

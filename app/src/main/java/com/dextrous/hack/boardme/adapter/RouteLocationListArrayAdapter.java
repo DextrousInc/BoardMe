@@ -1,8 +1,7 @@
 package com.dextrous.hack.boardme.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +10,15 @@ import android.widget.TextView;
 
 import com.dextrous.hack.boardme.R;
 import com.dextrous.hack.boardme.constant.BoardMeConstants;
-import com.dextrous.hack.boardme.model.Route;
 import com.dextrous.hack.boardme.model.RouteLocation;
 
-import java.text.MessageFormat;
 import java.util.List;
 
 public class RouteLocationListArrayAdapter extends ArrayAdapter<RouteLocation>{
 
     private final Context context;
     private final List<RouteLocation> values;
+    String TAG = RouteLocationListArrayAdapter.class.getName();
 
     public RouteLocationListArrayAdapter(Context context, List<RouteLocation> values) {
         super(context, -1, values);
@@ -44,7 +42,7 @@ public class RouteLocationListArrayAdapter extends ArrayAdapter<RouteLocation>{
             // change the icon for Windows and iPhone
             stopOrderText.setText(String.valueOf(item.getStopOrder()));
             farePercentText.setText(item.getFarePercent() + BoardMeConstants.SYMBOL_PERCENT);
-            System.out.println(item);
+            Log.d(TAG, item.toString());
         }
         return rowView;
     }

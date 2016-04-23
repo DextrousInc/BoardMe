@@ -1,11 +1,12 @@
 package com.dextrous.hack.boardme.callback;
 
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dextrous.hack.boardme.constant.BoardMeConstants;
-import com.dextrous.hack.boardme.response.BoardRouteResponse;
 import com.dextrous.hack.boardme.response.BoardWaitResponse;
 import com.dextrous.hack.boardme.response.GenericBeanResponse;
 
@@ -15,13 +16,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BoardWaitResponseCallback implements Callback<GenericBeanResponse<BoardWaitResponse>> {
+public class BoardWaitResponseCallback extends BaseCallback implements Callback<GenericBeanResponse<BoardWaitResponse>> {
     private TextView currentRouteText;
     private TextView currentStopText;
     private TextView etaText;
 
-    public BoardWaitResponseCallback(TextView currentRouteText, TextView currentStopText, TextView etaText) {
-
+    public BoardWaitResponseCallback(Context context,
+                                     TextView currentRouteText,
+                                     TextView currentStopText,
+                                     TextView etaText) {
+        super(context);
         this.currentRouteText = currentRouteText;
         this.currentStopText = currentStopText;
         this.etaText = etaText;
@@ -29,8 +33,6 @@ public class BoardWaitResponseCallback implements Callback<GenericBeanResponse<B
 
     @Override
     public void onResponse(Call<GenericBeanResponse<BoardWaitResponse>> call, Response<GenericBeanResponse<BoardWaitResponse>> response) {
-        System.out.println(response.isSuccessful());
-        System.out.println(response.body());
         if(response.isSuccessful()
                 && response.body() != null
                 && response.body().getItem() != null) {
@@ -44,10 +46,13 @@ public class BoardWaitResponseCallback implements Callback<GenericBeanResponse<B
                     }));
             Log.d("HTTP RESPONSE", response.body().toString());
         }
+        hideDialog();
     }
 
     @Override
     public void onFailure(Call<GenericBeanResponse<BoardWaitResponse>> call, Throwable t) {
         Log.e("HTTP ERROR", t.getMessage(), t);
+        Toast.makeText(context, BoardMeConstants.MSG_GENERIC_ERROR + t.getMessage(), Toast.LENGTH_LONG).show();
+        hideDialog();
     }
 }

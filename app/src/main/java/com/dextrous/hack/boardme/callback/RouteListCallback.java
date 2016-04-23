@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.dextrous.hack.boardme.activity.RouteLocationListActivity;
 import com.dextrous.hack.boardme.adapter.RouteArrayAdapter;
@@ -14,20 +15,18 @@ import com.dextrous.hack.boardme.constant.BoardMeConstants;
 import com.dextrous.hack.boardme.model.Route;
 import com.dextrous.hack.boardme.response.GenericListResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RouteListCallback implements Callback<GenericListResponse<Route>> {
+public class RouteListCallback extends BaseCallback implements Callback<GenericListResponse<Route>> {
 
-    private Context context;
     private ListView listView;
 
     public RouteListCallback(Context context, ListView listView) {
-        this.context = context;
+        super(context);
         this.listView = listView;
     }
     @Override
@@ -57,10 +56,13 @@ public class RouteListCallback implements Callback<GenericListResponse<Route>> {
                 Log.d("HTTP RESPONSE", apiResponse.toString());
             }
         }
+        hideDialog();
     }
 
     @Override
     public void onFailure(Call<GenericListResponse<Route>> call, Throwable t) {
-
+        Log.e("HTTP ERROR", t.getMessage(), t);
+        Toast.makeText(context, BoardMeConstants.MSG_GENERIC_ERROR + t.getMessage(), Toast.LENGTH_LONG).show();
+        hideDialog();
     }
 }

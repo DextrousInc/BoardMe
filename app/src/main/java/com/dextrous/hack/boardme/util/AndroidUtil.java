@@ -4,6 +4,7 @@ package com.dextrous.hack.boardme.util;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,15 +13,27 @@ import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 
+import com.dextrous.hack.boardme.R;
 import com.dextrous.hack.boardme.callback.LocationChangedCallback;
+import com.dextrous.hack.boardme.constant.BoardMeConstants;
 import com.dextrous.hack.boardme.listener.GPSLocationListener;
+import com.estimote.sdk.Region;
 import com.google.gson.Gson;
 
+import java.util.UUID;
+
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.APP_SHARED_PREFERENCE_KEY;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.MY_PERMISSIONS_REQUEST_LOCATION;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.STRING_BLANK;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.STRING_CANCEL_LINK_FOR_ALERT;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.STRING_GPS_SETTING_FOR_ALERT_CONTENT;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.STRING_GPS_SETTING_FOR_ALERT_TITLE;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.STRING_SETTING_LINK_FOR_ALERT;
 
 public class AndroidUtil {
-    private static final String STRING_BLANK = "";
+    static String TAG = AndroidUtil.class.getName();
 
     public static String getStringPreferenceValue(Context context, String preferenceKey) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(APP_SHARED_PREFERENCE_KEY, Context.MODE_PRIVATE);
@@ -47,33 +60,34 @@ public class AndroidUtil {
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
-    public static boolean checkGPSEnabled(final Context context, boolean warnUser) {
-        boolean isEnabled = isGPSEnabled(context);
+    public static boolean checkGPSEnabled(final Activity activity, boolean warnUser) {
+        boolean isEnabled = isGPSEnabled(activity);
         if (!isEnabled && warnUser) {
-            showAlertDialog(context, "","");
+            showAlertDialog(activity, STRING_GPS_SETTING_FOR_ALERT_TITLE, STRING_GPS_SETTING_FOR_ALERT_CONTENT);
         }
         return isEnabled;
     }
 
-    public static void showAlertDialog(final Context context, String title, String message) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+    public static void showAlertDialog(final Activity activity, String title, String message) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
 
         // Setting Dialog Title
-        alertDialog.setTitle("GPS settings");
+        alertDialog.setTitle(title);
 
         // Setting Dialog Message
-        alertDialog.setMessage("GPS is not enabled. Do you want to go to configure?");
+        alertDialog.setMessage(message);
 
         // On pressing the Settings button.
-        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton(STRING_SETTING_LINK_FOR_ALERT, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                context.startActivity(intent);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                activity.getBaseContext().startActivity(intent);
             }
         });
 
         // On pressing the cancel button
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton(STRING_CANCEL_LINK_FOR_ALERT, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
@@ -89,21 +103,52 @@ public class AndroidUtil {
             LocationManager locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
             if (ActivityCompat.checkSelfPermission(activity,
                     Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                ActivityCompat.requestPermissions(activity,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        10);
+                promptLocationPermission(activity);
                 return;
             }
-            System.out.println("Setting reqeust locations");
+            Log.d(TAG, "Setting request locations");
             GPSLocationListener listener = new GPSLocationListener(activity, callback, locationManager);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, listener);
         }
     }
+
+    public static void promptLocationPermission(Activity callingActivity) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(callingActivity,
+                Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+            // Show an explanation to the user *asynchronously* -- don't block
+            // this thread waiting for the user's response! After the user
+            // sees the explanation, try again to request the permission.
+
+            //Prompt the user once explanation has been shown
+            ActivityCompat.requestPermissions(callingActivity,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_LOCATION);
+
+
+        } else {
+            // No explanation needed, we can request the permission.
+            ActivityCompat.requestPermissions(callingActivity,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_LOCATION);
+        }
+    }
+    public static Region getBeaconRegion(Context context) {
+        return new Region(
+                BoardMeConstants.STRING_REGION_NAME,
+                UUID.fromString(context.getResources().getString(R.string.beacon_uuid)),
+                Integer.parseInt(context.getResources().getString(R.string.beacon_major)),
+                Integer.parseInt(context.getResources().getString(R.string.beacon_minor)));
+    }
+
+    public static ProgressDialog showProgressDialog(Context context, String titleText, String processingText) {
+        ProgressDialog progress = new ProgressDialog(context);
+        progress.setTitle(titleText);
+        progress.setCancelable(Boolean.FALSE);
+        progress.setCanceledOnTouchOutside(Boolean.FALSE);
+        progress.setMessage(processingText);
+        progress.show();
+        return progress;
+    }
+
 }
