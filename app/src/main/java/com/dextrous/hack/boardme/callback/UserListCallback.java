@@ -31,7 +31,6 @@ public class UserListCallback extends BaseCallback implements Callback<GenericLi
     @Override
     public void onResponse(Call<GenericListResponse<User>> call, Response<GenericListResponse<User>> response) {
         GenericListResponse<User> apiResponse = response.body();
-        System.out.println(response);
         if(apiResponse != null) {
             List<User> userList = apiResponse.getItems();
             if(userList != null && !userList.isEmpty()){

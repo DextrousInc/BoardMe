@@ -190,7 +190,6 @@ public class HomeActivity extends AppCompatActivity
                 boardmeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        System.out.println("Clicked boardme...");
                         beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
                             @Override
                             public void onServiceReady() {
