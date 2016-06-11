@@ -6,6 +6,7 @@ import com.dextrous.hack.boardme.model.RouteLocation;
 
 public class BoardWaitResponse {
     private RouteLocation closeStop;
+    private RouteLocation recentBoardStop;
     private ETAData eta;
 
     public RouteLocation getCloseStop() {
@@ -24,10 +25,19 @@ public class BoardWaitResponse {
         this.eta = eta;
     }
 
+    public RouteLocation getRecentBoardStop() {
+        return recentBoardStop;
+    }
+
+    public void setRecentBoardStop(RouteLocation recentBoardStop) {
+        this.recentBoardStop = recentBoardStop;
+    }
+
     @Override
     public String toString() {
         return "BoardWaitResponse{" +
                 "closeStop=" + closeStop +
+                ", recentBoardStop=" + recentBoardStop +
                 ", eta=" + eta +
                 '}';
     }

@@ -38,6 +38,8 @@ import com.dextrous.hack.boardme.util.AndroidUtil;
 import com.dextrous.hack.boardme.wrapper.RetrofitWrapper;
 import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.SystemRequirementsChecker;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,18 +48,26 @@ import retrofit2.Call;
 
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.FIELD_PASSWORD;
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.FIELD_USERNAME;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.STRING_BLANK;
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.USER_AUTH_KEY_PREFERENCE_KEY;
 
+
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, RoutesDialogFragment.RouteSelectionFragmentListener {
+        implements NavigationView.OnNavigationItemSelectedListener, RoutesDialogFragment.RouteSelectionFragmentListener, GoogleApiClient.ConnectionCallbacks {
 
     String TAG = HomeActivity.class.getName();
     private BeaconManager beaconManager;
+    GoogleApiClient mGoogleApiClient;
     Activity self = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         self = this;
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .build();
+        mGoogleApiClient.connect();
         setContentView(R.layout.activity_home);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -147,7 +157,8 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
         Integer screenToShowNext = null;
         String userAuthKey = AndroidUtil.getStringPreferenceValue(getApplicationContext(), USER_AUTH_KEY_PREFERENCE_KEY);
-        if("".equals(userAuthKey)) {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if(STRING_BLANK.equals(userAuthKey)) {
             switch (id) {
                 case R.id.nav_history:
                     screenToShowNext = 5;
@@ -163,6 +174,7 @@ public class HomeActivity extends AppCompatActivity
                     flipper.setDisplayedChild(6);
                     initLoginView(screenToShowNext);
                     // load login screen and quit
+                    drawer.closeDrawer(GravityCompat.START);
                     return true;
                 case R.id.nav_about:
                 case R.id.nav_users:
@@ -196,7 +208,7 @@ public class HomeActivity extends AppCompatActivity
                                 beaconManager.startMonitoring(AndroidUtil.getBeaconRegion(getApplicationContext()));
                             }
                         });
-                        beaconManager.setMonitoringListener(new BeaconListener(self, beaconManager));
+                        beaconManager.setMonitoringListener(new BeaconListener(self, mGoogleApiClient, beaconManager));
 
                     }
                 });
@@ -227,7 +239,6 @@ public class HomeActivity extends AppCompatActivity
                     self,
                     (ListView) findViewById(R.id.travelListView)));
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -236,6 +247,7 @@ public class HomeActivity extends AppCompatActivity
     public void onRouteSelectConfirmation(Route selectedRoute) {
         if (AndroidUtil.checkGPSEnabled(self, true)) {
             AndroidUtil.getLocationsHandler(self,
+                    mGoogleApiClient,
                     new BoardWaitLocationCallback(self,
                             selectedRoute));
         }
@@ -247,5 +259,17 @@ public class HomeActivity extends AppCompatActivity
         if(beaconManager != null) {
             beaconManager.disconnect();
         }
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        // nothing
+        Log.d(TAG, "Google Client API connected..");
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        // nothing
+        Log.d(TAG, "Google Client API disconnected..");
     }
 }

@@ -31,12 +31,12 @@ public class UserArrayAdapter extends ArrayAdapter<User> {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.user_list_item_view, parent, false);
-        TextView textView = (TextView) rowView.findViewById(R.id.firstLine);
-        TextView textView2 = (TextView) rowView.findViewById(R.id.secondLine);
+        TextView userNameText = (TextView) rowView.findViewById(R.id.userNameValue);
+        TextView mobileText = (TextView) rowView.findViewById(R.id.userMobileValue);
         User item = values.get(position);
-        textView.setText(item.getFullName());
+        userNameText.setText(item.getFullName());
         // change the icon for Windows and iPhone
-        textView2.setText(item.getEmail());
+        mobileText.setText(item.getMobile());
         Log.d(TAG, item.toString());
         return rowView;
     }

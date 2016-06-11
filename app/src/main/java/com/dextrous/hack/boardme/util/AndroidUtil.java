@@ -13,24 +13,28 @@ import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 
 import com.dextrous.hack.boardme.R;
 import com.dextrous.hack.boardme.callback.LocationChangedCallback;
 import com.dextrous.hack.boardme.constant.BoardMeConstants;
 import com.dextrous.hack.boardme.listener.GPSLocationListener;
 import com.estimote.sdk.Region;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
 
 import java.util.UUID;
 
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.APP_SHARED_PREFERENCE_KEY;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.FASTEST_INTERVAL;
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.MY_PERMISSIONS_REQUEST_LOCATION;
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.STRING_BLANK;
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.STRING_CANCEL_LINK_FOR_ALERT;
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.STRING_GPS_SETTING_FOR_ALERT_CONTENT;
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.STRING_GPS_SETTING_FOR_ALERT_TITLE;
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.STRING_SETTING_LINK_FOR_ALERT;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.UPDATE_INTERVAL;
 
 public class AndroidUtil {
     static String TAG = AndroidUtil.class.getName();
@@ -49,10 +53,10 @@ public class AndroidUtil {
         prefsEditor.commit();
     }
 
-    public static  <T extends Object>  T getPreferenceAsObject(Context context, String preferenceKey, Class<T> type){
+    public static <T extends Object> T getPreferenceAsObject(Context context, String preferenceKey, Class<T> type) {
         String json = getStringPreferenceValue(context, preferenceKey);
         Gson gson = new Gson();
-        return STRING_BLANK.equalsIgnoreCase(json) ? null : gson.fromJson(json, type) ;
+        return STRING_BLANK.equalsIgnoreCase(json) ? null : gson.fromJson(json, type);
     }
 
     public static boolean isGPSEnabled(Context context) {
@@ -98,17 +102,21 @@ public class AndroidUtil {
     }
 
 
-    public static void getLocationsHandler(Activity activity, LocationChangedCallback callback) {
+    public static void getLocationsHandler(Activity activity, GoogleApiClient mGoogleApiClient,
+                                           LocationChangedCallback callback) {
         if (isGPSEnabled(activity)) {
-            LocationManager locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
-            if (ActivityCompat.checkSelfPermission(activity,
-                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                promptLocationPermission(activity);
+            GPSLocationListener gpsLocationListener = new GPSLocationListener(activity, mGoogleApiClient, callback);
+            LocationRequest mLocationRequest = LocationRequest.create()
+                    .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                    .setInterval(UPDATE_INTERVAL)
+                    .setFastestInterval(FASTEST_INTERVAL);
+            if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-            Log.d(TAG, "Setting request locations");
-            GPSLocationListener listener = new GPSLocationListener(activity, callback, locationManager);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, listener);
+            LocationServices.FusedLocationApi.requestLocationUpdates(
+                    mGoogleApiClient, mLocationRequest, gpsLocationListener);
+
         }
     }
 

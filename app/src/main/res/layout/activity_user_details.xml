@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/label_email"
+            android:text="@string/label_mobile"
             android:id="@+id/emailLabel"
             android:layout_marginTop="129dp"
             android:layout_below="@+id/fullNameLabel"
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/label_not_available"
-            android:id="@+id/emailValueLabel"
+            android:id="@+id/mobileValueLabel"
             android:layout_alignBottom="@+id/emailLabel"
             android:layout_alignStart="@+id/usernameValueLabel" />
 
@@ -104,7 +104,7 @@
             android:id="@+id/currencyTypeValueLabel"
             android:layout_alignTop="@+id/currencyTypeLabel"
             android:layout_alignBottom="@+id/currencyTypeLabel"
-            android:layout_alignStart="@+id/emailValueLabel" />
+            android:layout_alignStart="@+id/mobileValueLabel" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

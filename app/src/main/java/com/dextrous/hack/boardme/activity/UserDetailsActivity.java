@@ -23,7 +23,7 @@ public class UserDetailsActivity extends AppCompatActivity {
         Object temp = getIntent().getSerializableExtra(BoardMeConstants.INTENT_PARAM_USER_ITEM_KEY);
         TextView fullNameText = (TextView) findViewById(R.id.fullNameValueLabel);
         TextView usernameText = (TextView) findViewById(R.id.usernameValueLabel);
-        TextView emailText = (TextView) findViewById(R.id.emailValueLabel);
+        TextView mobileNumberText = (TextView) findViewById(R.id.mobileValueLabel);
         TextView currencyTypeText = (TextView) findViewById(R.id.currencyTypeValueLabel);
         TextView walletAmountText = (TextView) findViewById(R.id.walletAmountValue);
         if(temp != null
@@ -31,12 +31,12 @@ public class UserDetailsActivity extends AppCompatActivity {
             User userDetail = (User) temp;
             if (fullNameText != null
                     && usernameText != null
-                    && emailText != null
+                    && mobileNumberText != null
                     && currencyTypeText != null
                     && walletAmountText != null) {
                 fullNameText.setText(userDetail.getFullName());
                 usernameText.setText(userDetail.getUsername());
-                emailText.setText(userDetail.getEmail());
+                mobileNumberText.setText(userDetail.getMobile());
                 currencyTypeText.setText(userDetail.getCurrencyType());
                 walletAmountText.setText(String.valueOf(userDetail.getWallet()));
             }

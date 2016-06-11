@@ -7,7 +7,7 @@ import java.util.Date;
 public class User implements Serializable {
     private Date createdTS;
     private String currencyType;
-    private String email;
+    private String mobile;
     private String firstName;
     private String fullName;
     private Integer id;
@@ -32,12 +32,12 @@ public class User implements Serializable {
         this.currencyType = currencyType;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getFirstName() {
@@ -101,7 +101,7 @@ public class User implements Serializable {
         return "User{" +
                 "createdTS=" + createdTS +
                 ", currencyType='" + currencyType + '\'' +
-                ", email='" + email + '\'' +
+                ", mobile='" + mobile + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", id=" + id +

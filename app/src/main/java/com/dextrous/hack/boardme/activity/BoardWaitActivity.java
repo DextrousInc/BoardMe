@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.dextrous.hack.boardme.R;
@@ -49,21 +50,24 @@ public class BoardWaitActivity extends AppCompatActivity {
         User userAuthObject = AndroidUtil.getPreferenceAsObject(getApplicationContext(), USER_AUTH_KEY_PREFERENCE_KEY, User.class);
         Log.d(TAG, "User auth=" + userAuthObject);
         Log.d(TAG, "userLocation=" + userLocation);
+        Log.d(TAG, "selectedRoute=" + selectedRoute);
         if(userAuthObject != null
                 && userLocation != null
                 && selectedRoute != null) {
             Call<GenericBeanResponse<BoardWaitResponse>> boardWaitCall = apiService.getBoardWaitData(
-                    String.valueOf(selectedRoute.getId()),
                     String.valueOf(userAuthObject.getId()),
+                    String.valueOf(selectedRoute.getId()),
                     String.valueOf(userLocation.getLatitude()),
                     String.valueOf(userLocation.getLongitude()));
             TextView currentRouteText = (TextView) findViewById(R.id.currentRouteValueLabel);
             TextView currentStopText = (TextView) findViewById(R.id.currentStopValueLabel);
             TextView etaValueText = (TextView) findViewById(R.id.etaValueLabel);
+            Button getMapsButton = (Button) findViewById(R.id.viewMapButton);
             boardWaitCall.enqueue(new BoardWaitResponseCallback(this,
                     currentRouteText,
                     currentStopText,
-                    etaValueText));
+                    etaValueText,
+                    getMapsButton));
         }
 
 

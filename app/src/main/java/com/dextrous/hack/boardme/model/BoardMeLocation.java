@@ -4,11 +4,17 @@ import android.location.Location;
 
 import java.io.Serializable;
 
-public class BoardMeLocation implements Serializable{
+public class BoardMeLocation implements Serializable {
     public BoardMeLocation(Location location) {
         this.longitude = location.getLongitude();
         this.latitude = location.getLatitude();
     }
+
+    public BoardMeLocation(RouteLocation location) {
+        this.latitude = location.getLocationLatitute();
+        this.longitude = location.getLocationLongitute();
+    }
+
     private double latitude;
     private double longitude;
 

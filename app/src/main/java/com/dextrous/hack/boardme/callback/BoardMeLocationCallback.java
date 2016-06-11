@@ -25,7 +25,7 @@ public class BoardMeLocationCallback extends BaseCallback implements LocationCha
         BoardMeLocation boardMeLocation = new BoardMeLocation(location);
         Intent intent = new Intent(context, BoardMeActivity.class);
         intent.putExtra(INTENT_PARAM_CURRENT_USER_LOCATION_KEY, boardMeLocation);
-        intent.putExtra(INTENT_PARAM_NEAREST_BEACON_ID_KEY, beacon!= null? beacon.getMacAddress() : null);
+        intent.putExtra(INTENT_PARAM_NEAREST_BEACON_ID_KEY, beacon!= null? beacon.getMacAddress().toString() : null);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         hideDialog();
         context.startActivity(intent);

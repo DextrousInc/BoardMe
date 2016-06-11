@@ -81,6 +81,14 @@
         android:layout_below="@+id/currentStopValueLabel"
         android:layout_alignStart="@+id/currentStopValueLabel"
         android:layout_marginTop="117dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view_maps_label"
+        android:id="@+id/viewMapButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

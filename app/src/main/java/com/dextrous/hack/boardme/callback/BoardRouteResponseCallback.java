@@ -33,6 +33,7 @@ import static com.dextrous.hack.boardme.constant.BoardMeConstants.FIELD_ROUTE_ST
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.FIELD_USER_ID;
 
 public class BoardRouteResponseCallback extends BaseCallback implements Callback<BoardRouteResponse> {
+    String TAG = BoardRouteResponseCallback.class.getName();
     private Spinner destinationSpinner;
     private TextView currentRouteText;
     private TextView currentStopText;
@@ -54,6 +55,7 @@ public class BoardRouteResponseCallback extends BaseCallback implements Callback
     @Override
     public void onResponse(Call<BoardRouteResponse> call, Response<BoardRouteResponse> response) {
         final User loggedUser = AndroidUtil.getPreferenceAsObject(context, BoardMeConstants.USER_AUTH_KEY_PREFERENCE_KEY, User.class);
+        Log.d(TAG, response.body().toString());
         if(response.isSuccessful()
                 && response.body() != null
                 && response.body().getSelectedRoute() != null

@@ -22,6 +22,7 @@ public class BoardMeConstants {
 
     // Intent parameter keys
     public static final String INTENT_PARAM_CURRENT_USER_LOCATION_KEY = "currentUserLocationKey";
+    public static final String INTENT_PARAM_RECENT_BOARD_LOCATION_KEY = "recentBoardLocationKey";
     public static final String INTENT_PARAM_SELECTED_ROUTE_KEY = "selectedRouteFromDialogKey";
     public static final String INTENT_PARAM_TRAVEL_HISTORY_ITEM_KEY = "travelHistoryItemKey";
     public static final String INTENT_PARAM_TRAVEL_HISTORY_ITEM_ID_KEY = "travelHistoryItemIdKey";
@@ -49,4 +50,8 @@ public class BoardMeConstants {
     public static final String FIELD_ROUTE_START_ID = "routeStartId";
     public static final String FIELD_ROUTE_END_ID = "routeEndId";
     public static final String FIELD_USER_ID = "userId";
+
+    public static final float MAP_DEFAULT_ZOOM = 13;
+    public static final long UPDATE_INTERVAL = 10;  /* 10 micro secs */
+    public static final long FASTEST_INTERVAL = 200; /* 0.2 sec */
 }
