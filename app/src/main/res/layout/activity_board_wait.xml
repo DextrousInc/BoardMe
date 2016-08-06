@@ -42,7 +42,8 @@
         android:id="@+id/currentRouteValueLabel"
         android:layout_alignTop="@+id/currentRouteLabel"
         android:layout_toEndOf="@+id/currentRouteLabel"
-        android:layout_marginStart="119dp" />
+        android:layout_marginStart="119dp"
+        android:textSize="@dimen/abc_dialog_padding_top_material" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -61,7 +62,8 @@
         android:text="@string/label_current_stop"
         android:id="@+id/currentStopValueLabel"
         android:layout_alignTop="@+id/currentStopLabel"
-        android:layout_alignStart="@+id/currentRouteValueLabel" />
+        android:layout_alignStart="@+id/currentRouteValueLabel"
+        android:textSize="@dimen/abc_dialog_padding_top_material" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -80,7 +82,8 @@
         android:id="@+id/etaValueLabel"
         android:layout_below="@+id/currentStopValueLabel"
         android:layout_alignStart="@+id/currentStopValueLabel"
-        android:layout_marginTop="117dp" />
+        android:layout_marginTop="117dp"
+        android:textSize="@dimen/abc_dialog_padding_top_material" />
 
     <Button
         android:layout_width="wrap_content"
