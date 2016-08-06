@@ -19,6 +19,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.LOG_TAG_HTTP_ERROR;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.LOG_TAG_HTTP_RESPONSE;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.MSG_GENERIC_ERROR;
+
 public class RouteLocationListCallback extends BaseCallback implements Callback<GenericListResponse<RouteLocation>> {
 
     private ListView listView;
@@ -46,15 +50,15 @@ public class RouteLocationListCallback extends BaseCallback implements Callback<
 
                 });
             }
-            Log.d("HTTP RESPONSE", apiResponse.toString());
+            Log.d(LOG_TAG_HTTP_RESPONSE, apiResponse.toString());
         }
         hideDialog();
     }
 
     @Override
     public void onFailure(Call<GenericListResponse<RouteLocation>> call, Throwable t) {
-        Log.e("HTTP ERROR", t.getMessage(), t);
-        Toast.makeText(context, BoardMeConstants.MSG_GENERIC_ERROR + t.getMessage(), Toast.LENGTH_LONG).show();
+        Log.e(LOG_TAG_HTTP_ERROR, t.getMessage(), t);
+        Toast.makeText(context, MSG_GENERIC_ERROR + t.getMessage(), Toast.LENGTH_LONG).show();
         hideDialog();
     }
 }

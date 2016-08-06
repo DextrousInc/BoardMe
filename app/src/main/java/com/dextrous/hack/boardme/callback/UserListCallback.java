@@ -21,6 +21,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.LOG_TAG_HTTP_ERROR;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.LOG_TAG_HTTP_RESPONSE;
+
 public class UserListCallback extends BaseCallback implements Callback<GenericListResponse<User>> {
     private ListView listView;
 
@@ -51,14 +54,14 @@ public class UserListCallback extends BaseCallback implements Callback<GenericLi
 
                 });
             }
-            Log.d("HTTP RESPONSE", apiResponse.toString());
+            Log.d(LOG_TAG_HTTP_RESPONSE, apiResponse.toString());
         }
         hideDialog();
     }
 
     @Override
     public void onFailure(Call<GenericListResponse<User>> call, Throwable t) {
-        Log.e("HTTP ERROR", t.getMessage(), t);
+        Log.e(LOG_TAG_HTTP_ERROR, t.getMessage(), t);
         Toast.makeText(context, BoardMeConstants.MSG_GENERIC_ERROR + t.getMessage(), Toast.LENGTH_LONG).show();
         hideDialog();
     }

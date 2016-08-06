@@ -23,6 +23,8 @@ import retrofit2.Response;
 
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.INTENT_PARAM_CURRENT_USER_LOCATION_KEY;
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.INTENT_PARAM_RECENT_BOARD_LOCATION_KEY;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.LOG_TAG_HTTP_ERROR;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.LOG_TAG_HTTP_RESPONSE;
 
 public class BoardWaitResponseCallback extends BaseCallback implements Callback<GenericBeanResponse<BoardWaitResponse>> {
     private TextView currentRouteText;
@@ -72,14 +74,14 @@ public class BoardWaitResponseCallback extends BaseCallback implements Callback<
                     }
                 });
             }
-            Log.d("HTTP RESPONSE", response.body().toString());
+            Log.d(LOG_TAG_HTTP_RESPONSE, response.body().toString());
         }
         hideDialog();
     }
 
     @Override
     public void onFailure(Call<GenericBeanResponse<BoardWaitResponse>> call, Throwable t) {
-        Log.e("HTTP ERROR", t.getMessage(), t);
+        Log.e(LOG_TAG_HTTP_ERROR, t.getMessage(), t);
         Toast.makeText(context, BoardMeConstants.MSG_GENERIC_ERROR + t.getMessage(), Toast.LENGTH_LONG).show();
         hideDialog();
     }

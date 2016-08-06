@@ -15,6 +15,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.LOG_TAG_HTTP_ERROR;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.LOG_TAG_HTTP_RESPONSE;
+
 public class BoardMePayTicketResponseCallback extends BaseCallback  implements Callback<GenericBeanResponse<TravelHistory>> {
 
 
@@ -32,7 +35,7 @@ public class BoardMePayTicketResponseCallback extends BaseCallback  implements C
             Intent intent = new Intent(context, TravelHistoryItemActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(BoardMeConstants.INTENT_PARAM_TRAVEL_HISTORY_ITEM_KEY, travelHistory);
-            Log.d("HTTP RESPONSE", travelHistory.toString());
+            Log.d(LOG_TAG_HTTP_RESPONSE, travelHistory.toString());
             context.startActivity(intent);
         }
         hideDialog();
@@ -40,7 +43,7 @@ public class BoardMePayTicketResponseCallback extends BaseCallback  implements C
 
     @Override
     public void onFailure(Call<GenericBeanResponse<TravelHistory>> call, Throwable t) {
-        Log.e("HTTP ERROR", t.getMessage(), t);
+        Log.e(LOG_TAG_HTTP_ERROR, t.getMessage(), t);
         Toast.makeText(context, BoardMeConstants.MSG_GENERIC_ERROR + t.getMessage(), Toast.LENGTH_LONG).show();
         hideDialog();
     }

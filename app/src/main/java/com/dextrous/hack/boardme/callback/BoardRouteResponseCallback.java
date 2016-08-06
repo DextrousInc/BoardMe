@@ -28,9 +28,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.*;
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.FIELD_ROUTE_END_ID;
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.FIELD_ROUTE_START_ID;
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.FIELD_USER_ID;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.LOG_TAG_HTTP_RESPONSE;
 
 public class BoardRouteResponseCallback extends BaseCallback implements Callback<BoardRouteResponse> {
     String TAG = BoardRouteResponseCallback.class.getName();
@@ -54,7 +56,7 @@ public class BoardRouteResponseCallback extends BaseCallback implements Callback
 
     @Override
     public void onResponse(Call<BoardRouteResponse> call, Response<BoardRouteResponse> response) {
-        final User loggedUser = AndroidUtil.getPreferenceAsObject(context, BoardMeConstants.USER_AUTH_KEY_PREFERENCE_KEY, User.class);
+        final User loggedUser = AndroidUtil.getPreferenceAsObject(context, USER_AUTH_KEY_PREFERENCE_KEY, User.class);
         Log.d(TAG, response.body().toString());
         if(response.isSuccessful()
                 && response.body() != null
@@ -83,15 +85,15 @@ public class BoardRouteResponseCallback extends BaseCallback implements Callback
                     genericBeanResponseCall.enqueue(new BoardMePayTicketResponseCallback(context));
                 }
             });
-            Log.d("HTTP RESPONSE", response.body().toString());
+            Log.d(LOG_TAG_HTTP_RESPONSE, response.body().toString());
         }
         hideDialog();
     }
 
     @Override
     public void onFailure(Call<BoardRouteResponse> call, Throwable t) {
-        Log.e("HTTP ERROR", t.getMessage(), t);
-        Toast.makeText(context, BoardMeConstants.MSG_GENERIC_ERROR + t.getMessage(), Toast.LENGTH_LONG).show();
+        Log.e(LOG_TAG_HTTP_ERROR, t.getMessage(), t);
+        Toast.makeText(context, MSG_GENERIC_ERROR + t.getMessage(), Toast.LENGTH_LONG).show();
         hideDialog();
     }
 }

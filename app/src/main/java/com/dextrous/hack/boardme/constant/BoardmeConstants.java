@@ -54,4 +54,10 @@ public class BoardMeConstants {
     public static final float MAP_DEFAULT_ZOOM = 13;
     public static final long UPDATE_INTERVAL = 10;  /* 10 micro secs */
     public static final long FASTEST_INTERVAL = 200; /* 0.2 sec */
+
+
+    public static final String LOG_TAG_HTTP_RESPONSE = "HTTP RESPONSE";
+    public static final String LOG_TAG_HTTP_ERROR = "HTTP ERROR";
+    public static final int DEFAULT_READ_TIMEOUT = 5; // => seconds
+    public static final int DEFAULT_CONNECT_TIMEOUT = 60; // => seconds
 }

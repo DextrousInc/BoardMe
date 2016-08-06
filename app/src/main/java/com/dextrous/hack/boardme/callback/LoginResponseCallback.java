@@ -14,6 +14,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.LOG_TAG_HTTP_ERROR;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.LOG_TAG_HTTP_RESPONSE;
 import static com.dextrous.hack.boardme.constant.BoardMeConstants.USER_AUTH_KEY_PREFERENCE_KEY;
 
 
@@ -33,7 +35,7 @@ public class LoginResponseCallback extends BaseCallback implements Callback<Gene
 
         GenericBeanResponse<User> apiResponse = response.body();
         if(apiResponse != null ) {
-            Log.d("HTTP RESPONSE", response.body().toString());
+            Log.d(LOG_TAG_HTTP_RESPONSE, response.body().toString());
             if(apiResponse.getSuccess()){
                 User user = apiResponse.getItem();
                 AndroidUtil.setObjectPreferenceAsString(context, USER_AUTH_KEY_PREFERENCE_KEY, user);
@@ -48,7 +50,7 @@ public class LoginResponseCallback extends BaseCallback implements Callback<Gene
 
     @Override
     public void onFailure(Call<GenericBeanResponse<User>> call, Throwable t) {
-        Log.e("HTTP ERROR", t.getMessage(), t);
+        Log.e(LOG_TAG_HTTP_ERROR, t.getMessage(), t);
         Toast.makeText(context, BoardMeConstants.MSG_GENERIC_ERROR +t.getMessage(), Toast.LENGTH_LONG).show();
         hideDialog();
     }

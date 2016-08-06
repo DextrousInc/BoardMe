@@ -33,7 +33,9 @@
             android:id="@+id/currentRouteLabel"
             android:layout_marginTop="93dp"
             android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_alignEnd="@+id/fareLabel"
+            android:textSize="@dimen/abc_dialog_padding_top_material" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,8 +43,12 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/label_not_available"
             android:id="@+id/currentRouteValueLabel"
+            android:textSize="@dimen/abc_dialog_padding_top_material"
             android:layout_alignTop="@+id/currentRouteLabel"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignBottom="@+id/currentRouteLabel"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/currentStopValueLabel"
+            android:layout_alignStart="@+id/currentStopValueLabel" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,11 +56,11 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/label_current_stop"
             android:id="@+id/currentStopLabel"
-            android:layout_marginTop="45dp"
-            android:layout_below="@+id/currentRouteLabel"
             android:layout_alignParentStart="true"
-            android:layout_alignBottom="@+id/chosenDestinationLabel"
-            android:layout_toStartOf="@+id/currentRouteValueLabel" />
+            android:layout_toStartOf="@+id/currentRouteValueLabel"
+            android:layout_below="@+id/currentRouteLabel"
+            android:layout_alignEnd="@+id/currentRouteLabel"
+            android:textSize="@dimen/abc_dialog_padding_top_material" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -62,8 +68,9 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/label_not_available"
             android:id="@+id/currentStopValueLabel"
-            android:layout_alignTop="@+id/currentStopLabel"
-            android:layout_alignStart="@+id/currentRouteValueLabel" />
+            android:textSize="@dimen/abc_dialog_padding_top_material"
+            android:layout_below="@+id/currentStopLabel"
+            android:layout_alignStart="@+id/selectedDestinationValueLabel" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -74,7 +81,8 @@
             android:layout_marginTop="129dp"
             android:layout_below="@+id/currentRouteLabel"
             android:layout_alignParentStart="true"
-            android:layout_alignEnd="@+id/currentStopLabel" />
+            android:layout_alignEnd="@+id/currentStopLabel"
+            android:textSize="@dimen/abc_dialog_padding_top_material" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -82,8 +90,9 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/label_not_available"
             android:id="@+id/selectedDestinationValueLabel"
-            android:layout_alignBottom="@+id/chosenDestinationLabel"
-            android:layout_alignStart="@+id/currentStopValueLabel" />
+            android:textSize="@dimen/abc_dialog_padding_top_material"
+            android:layout_below="@+id/chosenDestinationLabel"
+            android:layout_toEndOf="@+id/fareValueLabel" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -94,7 +103,8 @@
             android:layout_marginTop="63dp"
             android:layout_below="@+id/chosenDestinationLabel"
             android:layout_alignParentStart="true"
-            android:layout_alignEnd="@+id/travelledTSLabel" />
+            android:layout_alignEnd="@+id/travelledTSLabel"
+            android:textSize="@dimen/abc_dialog_padding_top_material" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -102,9 +112,9 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/label_not_available"
             android:id="@+id/fareValueLabel"
-            android:layout_alignTop="@+id/fareLabel"
-            android:layout_alignBottom="@+id/fareLabel"
-            android:layout_alignStart="@+id/selectedDestinationValueLabel" />
+            android:textSize="@dimen/abc_dialog_padding_top_material"
+            android:layout_below="@+id/fareLabel"
+            android:layout_toEndOf="@+id/travelledTSLabel" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -113,16 +123,18 @@
             android:id="@+id/travelledTSLabel"
             android:layout_marginTop="53dp"
             android:layout_below="@+id/fareLabel"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:textSize="@dimen/abc_dialog_padding_top_material" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/label_not_available"
-            android:layout_alignTop="@+id/travelledTSLabel"
-            android:layout_alignStart="@+id/fareValueLabel"
-            android:id="@+id/travelledTSValue" />
+            android:id="@+id/travelledTSValue"
+            android:textSize="@dimen/abc_dialog_padding_top_material"
+            android:layout_below="@+id/travelledTSLabel"
+            android:layout_toEndOf="@+id/travelledTSLabel" />
 
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

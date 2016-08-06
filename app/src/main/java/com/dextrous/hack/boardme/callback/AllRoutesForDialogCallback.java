@@ -14,6 +14,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.LOG_TAG_HTTP_ERROR;
+import static com.dextrous.hack.boardme.constant.BoardMeConstants.LOG_TAG_HTTP_RESPONSE;
+
 public class AllRoutesForDialogCallback extends BaseCallback implements Callback<GenericListResponse<Route>> {
 
     private FragmentManager fragmentManager;
@@ -32,14 +35,14 @@ public class AllRoutesForDialogCallback extends BaseCallback implements Callback
                 && !response.body().getItems().isEmpty()) {
             RoutesDialogFragment routesDialogFragment = RoutesDialogFragment.newInstance(response.body());
             routesDialogFragment.show(fragmentManager, BoardMeConstants.TAG_DIALOG_ROUTES_LIST);
-            Log.d("HTTP RESPONSE", response.body().toString());
+            Log.d(LOG_TAG_HTTP_RESPONSE, response.body().toString());
         }
         hideDialog();
     }
 
     @Override
     public void onFailure(Call<GenericListResponse<Route>> call, Throwable t) {
-        Log.e("HTTP ERROR", t.getMessage(), t);
+        Log.e(LOG_TAG_HTTP_ERROR, t.getMessage(), t);
         Toast.makeText(context, BoardMeConstants.MSG_GENERIC_ERROR +t.getMessage(), Toast.LENGTH_LONG).show();
         hideDialog();
     }
