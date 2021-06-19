@@ -89,9 +89,6 @@ This is the flow in which the user boards a bus and pays through the app.
 ![BookingHistory](./images/my-history.png)
 
 
-### BoardingHistory
-![History](./images/web-travel-history.png)
-
 
 ### References:
 The following are the references that has been used in the above detailed documentation:
